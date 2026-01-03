@@ -197,47 +197,6 @@
             ]
         },
         {
-            "pakku_id": "zac7OSkHV3d1P44u",
-            "type": "MOD",
-            "side": "CLIENT",
-            "slug": {
-                "modrinth": "automatic-tool-swap"
-            },
-            "name": {
-                "modrinth": "Automatic Tool Swap"
-            },
-            "id": {
-                "modrinth": "L9JLNLqk"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "ToolSwap-1.21-6.0.3.jar",
-                    "mc_versions": [
-                        "1.21",
-                        "1.21.1",
-                        "1.21.2",
-                        "1.21.3",
-                        "1.21.4"
-                    ],
-                    "loaders": [
-                        "neoforge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/L9JLNLqk/versions/xeiYYQxZ/ToolSwap-1.21-6.0.3.jar",
-                    "id": "xeiYYQxZ",
-                    "parent_id": "L9JLNLqk",
-                    "hashes": {
-                        "sha512": "5cb545404fcb1b165be53a5a34ae2dea1331cf20c56bd584a2d89aab1e6e575f55b53fa3e80acb6b48e4f61ff4e13f18ad429761f1cc1a99f130daa9a870d2bd",
-                        "sha1": "b938fa82bfe05ba8f103a6ca57943a929cda61ef"
-                    },
-                    "required_dependencies": [],
-                    "size": 23078,
-                    "date_published": "2025-02-14T20:00:48.615979Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "WDUnO4kc3vSaKAgT",
             "type": "MOD",
             "side": "BOTH",
