@@ -1,11 +1,11 @@
 {
-	"version": 6,
+	"version": 5,
 	"__comment_enableBridgingAssist": "a.k.a. 'Reacharound Placement' in keybinds. The Quark thing.",
 	"enableBridgingAssist": true,
 	"minBridgeDistance": 20.0,
 	"minBridgeDistanceHorizontal": 1.0,
 	"minBridgeDistanceVertical": 0.1,
-	"onlyBridgeWhenCrouched": false,
+	"onlyBridgeWhenCrouched": true,
 	"supportedBridgeAxes": "BOTH",
 	"supportedBridgeAxesWhenCrouched": "FALLBACK",
 	"delayPostBridging": 4,
