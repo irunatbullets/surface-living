@@ -1,0 +1,2 @@
+resourcePacks:["pfm-asset-resources","vanilla","fabric","mod_resources","moonlight:merged_pack","file/Whimscape_1.20.2-1.21.11_r1.zip","file/whimscape-mods.zip","file/Whimscape x Exploration v2.1.zip","file/Whimscape x Curios.zip","file/Whimscape x Sophisticated.zip","file/Whimscape Variated Villagers.zip"]
+key_gui.xaero_new_waypoint:key.keyboard.n
