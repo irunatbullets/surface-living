@@ -250,7 +250,7 @@ jobs:
     if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
     steps:
       - name: Send Discord message
-        uses: hugoalh/send-discord-webhook-ghaction@v7
+        uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
         with:
           key: "${{ secrets.DISCORD_WEBHOOK }}"
           username: "irunatbullets"
