@@ -250,9 +250,9 @@ jobs:
     if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
     steps:
       - name: Send Discord message
-        uses: hugoalh/send-discord-webhook-ghaction@v7
+        uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
         with:
-          key: "${{ secrets.DISCORD_WEBHOOK }}"
+          key: ${{ secrets.DISCORD_WEBHOOK }}
           username: "irunatbullets"
           avatar_url: "https://cdn.modrinth.com/data/PoHFfv3G/53d3a9085947f25804334a2c5de8f656f3bb2f20.png"
           content_links_no_embed: .+
