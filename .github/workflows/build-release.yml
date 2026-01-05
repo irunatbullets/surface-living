@@ -101,9 +101,15 @@ jobs:
             echo "loader_type=$LOADER_TYPE"
             echo "loader_version=$LOADER_VERSION"
             echo "release_type=$RELEASE_TYPE"
-            echo "changelog=$CHANGELOG"
-            echo "diff=$DIFF"
             echo "make_release=$MAKE_RELEASE"
+
+            echo "changelog<<EOF"
+            cat CHANGELOG.md
+            echo "EOF"
+
+            echo "diff<<EOF"
+            echo "$DIFF"
+            echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
       - name: Check for Pakku-lock changes
