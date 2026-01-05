@@ -2432,43 +2432,6 @@
             ]
         },
         {
-            "pakku_id": "2WfKX3ogZwY4Sxhn",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "modrinth": "recharged"
-            },
-            "name": {
-                "modrinth": "Redstone: Recharged"
-            },
-            "id": {
-                "modrinth": "HN8aDuoL"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "recharged-0.3.0-1.21.1.jar",
-                    "mc_versions": [
-                        "1.21.1"
-                    ],
-                    "loaders": [
-                        "neoforge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://cdn.modrinth.com/data/HN8aDuoL/versions/t07trxtc/recharged-0.3.0-1.21.1.jar",
-                    "id": "t07trxtc",
-                    "parent_id": "HN8aDuoL",
-                    "hashes": {
-                        "sha512": "53577cc93efc15c090df3016c4948fe8702dbfdc1f8605ea77a71652004368bb880d00fb2b4eacacf3f16d11d3380fecd7978a98371bae3edcc5ff6edaae4082",
-                        "sha1": "91a98402f50b6bbfdb1edd31008523f17ea5e130"
-                    },
-                    "required_dependencies": [],
-                    "size": 377543,
-                    "date_published": "2025-08-30T00:13:34.863123Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "JHSgpL8sFadSl8EN",
             "type": "MOD",
             "side": "BOTH",
