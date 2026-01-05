@@ -2945,6 +2945,44 @@
             ]
         },
         {
+            "pakku_id": "yU7kGQDWIQVwo2Sc",
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "modrinth": "toastbegone"
+            },
+            "name": {
+                "modrinth": "ToastBegone"
+            },
+            "id": {
+                "modrinth": "g8reZf3x"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "toastbegone-neoforge-1.21-1.2.0.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/g8reZf3x/versions/5hLqblBx/toastbegone-neoforge-1.21-1.2.0.jar",
+                    "id": "5hLqblBx",
+                    "parent_id": "g8reZf3x",
+                    "hashes": {
+                        "sha512": "003011cb3365a18477614c2abef249298de974c55010c73a66efa3d008106cd21d11a6c61aa83578c0b484b68813727cf39245ef7bbf7e37ef32b6bc5eb1144f",
+                        "sha1": "96ac4f2829b6db968855a1fa00bf5eef1c337366"
+                    },
+                    "required_dependencies": [],
+                    "size": 1123560,
+                    "date_published": "2024-08-27T15:14:01.047974Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "7FaQUr99FUjxU4pb",
             "type": "MOD",
             "side": "BOTH",
@@ -2981,56 +3019,6 @@
                     ],
                     "size": 123189,
                     "date_published": "2025-03-18T15:07:52.106481Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "BOcFB47XU0iddPR7",
-            "type": "MOD",
-            "side": "CLIENT",
-            "slug": {
-                "modrinth": "tutorial-suppressor"
-            },
-            "name": {
-                "modrinth": "Tutorial Suppressor"
-            },
-            "id": {
-                "modrinth": "SSyS4Ayv"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "tutorialsuppressor-0.1.0+1.20.6-neoforge.jar",
-                    "mc_versions": [
-                        "1.20.5",
-                        "1.20.6",
-                        "1.21",
-                        "1.21.1",
-                        "1.21.2",
-                        "1.21.3",
-                        "1.21.4",
-                        "1.21.5",
-                        "1.21.6",
-                        "1.21.7",
-                        "1.21.8",
-                        "1.21.9",
-                        "1.21.10",
-                        "1.21.11"
-                    ],
-                    "loaders": [
-                        "neoforge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://cdn.modrinth.com/data/SSyS4Ayv/versions/gExehcKM/tutorialsuppressor-0.1.0+1.20.6-neoforge.jar",
-                    "id": "gExehcKM",
-                    "parent_id": "SSyS4Ayv",
-                    "hashes": {
-                        "sha512": "698859a95283ef73696f60c880321dcd111032f327f8bd123b4f6e884662bccab5aa30b35ec54e29e1c2a90682beecb47d226471d73abddd94385a2bc65a7af2",
-                        "sha1": "bf89a4d4fc6bf1aa365d9665d0a311461a9c8ac7"
-                    },
-                    "required_dependencies": [],
-                    "size": 10055,
-                    "date_published": "2025-07-06T07:58:14.622873Z"
                 }
             ]
         },
