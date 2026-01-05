@@ -60,7 +60,6 @@ jobs:
 
           VERSION=$(grep -m1 '^## ' CHANGELOG.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
 
-
           if [ -z "$VERSION" ]; then
             echo "Could not determine version from CHANGELOG.md"
             exit 1
@@ -74,7 +73,9 @@ jobs:
           MC_VERSION=$(echo "$PK_LOCK" | jq -r '.mc_versions[0]')
           LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
           LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
-          CHANGELOG=$(cat CHANGELOG.md)
+
+          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' CHANGELOG.md)
+          CLEAN=$(echo "$LATEST" | sed '/^EOF/d')
 
           SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
@@ -106,13 +107,14 @@ jobs:
             echo "make_release=$MAKE_RELEASE"
 
             echo "changelog<<EOF"
-            cat CHANGELOG.md
+            echo "$CLEAN"
             echo "EOF"
 
             echo "diff<<EOF"
             echo "$DIFF"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+
 
       - name: Check for Pakku-lock changes
         uses: dorny/paths-filter@v3
@@ -173,8 +175,13 @@ jobs:
 
       - name: Prepare artifacts
         run: |
-          mv build/modrinth/*.mrpack build/modrinth/${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
-          mv build/serverpack/*.zip build/serverpack/${{ needs.info.outputs.project_file_name }}-serverpack.zip
+          FILE_SUFFIX=""
+          if [ "${{ needs.info.outputs.make_release }}" != 'true' ]; then
+            FILE_SUFFIX="-dev"
+          fi
+
+          mv build/modrinth/*.mrpack build/modrinth/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-modrinth.mrpack
+          mv build/serverpack/*.zip build/serverpack/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-serverpack.zip
 
       - uses: actions/upload-artifact@v4
         with:
@@ -237,32 +244,33 @@ jobs:
             ${{ needs.info.outputs.diff }}
 
   discord-message:
-    name: Discord Message
-    needs: [info, release-github, release-modrinth]
-    runs-on: ubuntu-latest
-    if: needs.info.outputs.webhook_present == 'true'
-    steps:
-      - name: Truncate Changelog
-        id: truncated
-        uses: cisox/read-more-action@v1
-        with:
-          text: '${{ needs.info.outputs.changelog }}'
-          max_chars: '1450'
-      - name: Send Discord message
-        uses: hugoalh/send-discord-webhook-ghaction@v7
-        with:
-          key: ${{ secrets.DISCORD_WEBHOOK }}
-          username: "irunatbullet"
-          avatar_url: "https://media.forgecdn.net/avatars/thumbnails/798/822/64/64/638160732420962168.png"
-          content_links_no_embed: .+
-          content: |
-            **Release**: `${{ needs.info.outputs.project_full_name }}`
-            **Release Type**: `${{ needs.info.outputs.release_type }}`
-            **Game Version**: `${{ needs.info.outputs.mc_version }}`
-            [Modrinth](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}) • [GitHub](${{ needs.release-github.outputs.url }}) • [Issues](https://github.com/${{ github.repository }}/issues)
+  name: Discord Message
+  needs: [info, release-github, release-modrinth]
+  runs-on: ubuntu-latest
+  if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
+  steps:
+    - name: Truncate Changelog
+      id: truncated
+      uses: cisox/read-more-action@v1
+      with:
+        text: "${{ needs.info.outputs.changelog }}"
+        max_chars: '1450'
 
-            ```markdown
-            ${{ steps.truncated.outputs.text }}
-            ```
-          
-            ** [Read more...](${{ needs.release-github.outputs.url }}) **
+    - name: Send Discord message
+      uses: hugoalh/send-discord-webhook-ghaction@v7
+      with:
+        key: ${{ secrets.DISCORD_WEBHOOK }}
+        username: "irunatbullets"
+        avatar_url: "https://media.forgecdn.net/avatars/thumbnails/798/822/64/64/638160732420962168.png"
+        content_links_no_embed: .+
+        content: |
+          **Release**: `${{ needs.info.outputs.project_full_name }}`
+          **Release Type**: `${{ needs.info.outputs.release_type }}`
+          **Game Version**: `${{ needs.info.outputs.mc_version }}`
+          [Modrinth](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}) • [GitHub](${{ needs.release-github.outputs.url }}) • [Issues](https://github.com/${{ github.repository }}/issues)
+
+          ```markdown
+          ${{ steps.truncated.outputs.text }}
+          ```
+        
+          ** [Read more...](${{ needs.release-github.outputs.url }}) **
