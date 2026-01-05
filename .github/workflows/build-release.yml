@@ -104,19 +104,21 @@ jobs:
           fi
 
           # Pakku-lock changes
-          echo "::set-output name=diff::$DIFF"
-          echo "::set-output name=mc_version::$MC_VERSION"
-          echo "::set-output name=loader_type::$LOADER_TYPE"
-          echo "::set-output name=loader_version::$LOADER_VERSION"
-          echo "::set-output name=project_name::$NAME"
-          echo "::set-output name=project_full_name::$NAME $VERSION"
-          echo "::set-output name=project_file_name::$NAME-$VERSION"
-          echo "::set-output name=project_version::$VERSION"
-          echo "::set-output name=release_type::$RELEASE_TYPE"
-          echo "::set-output name=changelog::$CHANGELOG"
-          echo "::set-output name=exists::$TAG_EXISTS"
-          echo "::set-output name=make_release::$MAKE_RELEASE"
-          echo "::set-output name=make_pr::$MAKE_PR"
+          {
+            echo "diff=$DIFF"
+            echo "mc_version=$MC_VERSION"
+            echo "loader_type=$LOADER_TYPE"
+            echo "loader_version=$LOADER_VERSION"
+            echo "project_name=$NAME"
+            echo "project_full_name=$NAME $VERSION"
+            echo "project_file_name=$NAME-$VERSION"
+            echo "project_version=$VERSION"
+            echo "release_type=$RELEASE_TYPE"
+            echo "changelog=$CHANGELOG"
+            echo "exists=$TAG_EXISTS"
+            echo "make_release=$MAKE_RELEASE"
+            echo "make_pr=$MAKE_PR"
+          } >> $GITHUB_OUTPUT
 
       - name: Check for Pakku-lock changes
         uses: dorny/paths-filter@v3
