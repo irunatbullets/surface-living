@@ -79,7 +79,7 @@ jobs:
 
           SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
-          DIFF="No pakku-lock.json found in previous tag."
+          DIFF=""
           LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
 
           if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
@@ -249,13 +249,6 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
     steps:
-      - name: Truncate Changelog
-        id: truncated
-        uses: cisox/read-more-action@v1
-        with:
-          text: "${{ needs.info.outputs.changelog }}"
-          max_chars: '1450'
-
       - name: Send Discord message
         uses: hugoalh/send-discord-webhook-ghaction@v7
         with:
@@ -270,7 +263,7 @@ jobs:
             [Modrinth](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}) • [GitHub](${{ needs.release-github.outputs.url }}) • [Issues](https://github.com/${{ github.repository }}/issues)
 
             ```markdown
-            ${{ steps.truncated.outputs.text }}
+            ${{ needs.info.outputs.changelog }}
+            ${{ needs.info.outputs.diff }}
             ```
-          
-            ** [Read more...](${{ needs.release-github.outputs.url }}) **
+
