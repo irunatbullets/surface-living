@@ -1,0 +1,291 @@
+name: Build Project
+run-name: "Project Build #${{ github.run_number }}"
+
+on:
+  push:
+    branches: [dev, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEV_ENVIRONMENT: ${{ github.ref_name != 'main' }}
+
+jobs:
+  info:
+    name: Project Info
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'irunatbullets'
+    outputs:
+      project_version: ${{ steps.set_outputs.outputs.project_version }}
+      project_name: ${{ steps.set_outputs.outputs.project_name }}
+      project_file_name: ${{ steps.set_outputs.outputs.project_file_name }}
+      project_full_name: ${{ steps.set_outputs.outputs.project_full_name }}
+      changelog: ${{ steps.set_outputs.outputs.changelog }}
+      mc_version: ${{ steps.set_outputs.outputs.mc_version }}
+      loader_version: ${{ steps.set_outputs.outputs.loader_version }}
+      loader_type: ${{ steps.set_outputs.outputs.loader_type }}
+      release_type: ${{ steps.set_outputs.outputs.release_type }}
+      diff: ${{ steps.set_outputs.outputs.diff }}
+      exists: ${{ steps.set_outputs.outputs.exists }}
+      make_release: ${{ steps.set_outputs.outputs.make_release }}
+      make_pr: ${{ steps.set_outputs.outputs.make_pr }}
+      pakku-lock_changed: ${{ steps.filter.outputs.pakku-lock }}
+      webhook_present: ${{ steps.webhook.outputs.present }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate pakku files
+        run: |
+          test -f pakku.json || exit 1
+          test -f pakku-lock.json || exit 1
+
+      - name: Download Pakku
+        run: |
+          curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+      - name: Configure Pakku credentials
+        run: |
+          if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+            java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+          fi
+
+      - name: Pakku info + diff + changelog
+        id: set_outputs
+        run: |
+          # Get previous pakku-lock if exists
+          PREV_LOCK=false
+          LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || echo "")
+          if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
+            git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
+            PREV_LOCK=true
+          fi
+
+          # Run diff if previous lock exists
+          if $PREV_LOCK; then
+            java -jar pakku.jar diff --markdown PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
+            DIFF=$(cat PROJECTS_DIFF.md)
+          else
+            DIFF="No pakku-lock.json found in previous tag."
+          fi
+
+          # Read pakku.json and pakku-lock.json
+          PK_INFO=$(jq -r '.' pakku.json)
+          PK_LOCK=$(jq -r '.' pakku-lock.json)
+
+          MC_VERSION=$(echo "$PK_LOCK" | jq -r '.mc_versions[0]')
+          LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
+          LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
+          NAME=$(echo "$PK_INFO" | jq -r '.name')
+          RELEASE_TYPE=$(echo "$PK_INFO" | jq -r '.release_type')
+          CHANGELOG=$(cat CHANGELOG.md || echo "No changelog available")
+
+          # Determine version
+          if ${{ env.DEV_ENVIRONMENT }}; then
+            VERSION="build_#${{ github.run_number }}"
+          else
+            VERSION=$(jq -r '.version // empty' pakku.json)
+          fi
+
+          # Tag existence check
+          TAG_EXISTS=$(git tag --list "$VERSION")
+          MAKE_RELEASE=false
+          MAKE_PR=false
+          if [ -z "$TAG_EXISTS" ]; then
+            if ${{ env.DEV_ENVIRONMENT }}; then
+              MAKE_PR=true
+            else
+              MAKE_RELEASE=true
+            fi
+          fi
+
+          # Pakku-lock changes
+          {
+            echo "diff=$DIFF"
+            echo "mc_version=$MC_VERSION"
+            echo "loader_type=$LOADER_TYPE"
+            echo "loader_version=$LOADER_VERSION"
+            echo "project_name=$NAME"
+            echo "project_full_name=$NAME $VERSION"
+            echo "project_file_name=$NAME-$VERSION"
+            echo "project_version=$VERSION"
+            echo "release_type=$RELEASE_TYPE"
+            echo "changelog=$CHANGELOG"
+            echo "exists=$TAG_EXISTS"
+            echo "make_release=$MAKE_RELEASE"
+            echo "make_pr=$MAKE_PR"
+          } >> $GITHUB_OUTPUT
+
+      - name: Check for Pakku-lock changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            pakku-lock:
+              - 'pakku-lock.json'
+
+      - name: Check for webhook
+        id: webhook
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+            echo "present=false" >> $GITHUB_OUTPUT
+          else
+            echo "present=true" >> $GITHUB_OUTPUT
+          fi
+
+  build-project:
+    name: Build Project
+    needs: [info]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download Pakku
+        run: |
+          curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+      - name: Configure Pakku credentials
+        run: |
+          if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+            java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+          fi
+
+      - name: Replace version strings
+        run: |
+          VERSION=${{ needs.info.outputs.project_version }}
+          LOADER_VERSION=${{ needs.info.outputs.loader_version }}
+          LOADER_TYPE=${{ needs.info.outputs.loader_type }}
+          MINECRAFT_VERSION=${{ needs.info.outputs.mc_version }}
+
+          sed -i -e "s/DEV/${VERSION}/g" pakku.json
+          sed -i -e "s/LOADER_VERSION/${LOADER_VERSION}/g" .pakku/server-overrides/forge-auto-install.txt
+          sed -i -e "s/LOADER_TYPE/${LOADER_TYPE}/g" .pakku/server-overrides/forge-auto-install.txt
+          sed -i -e "s/MINECRAFT_VERSION/${MINECRAFT_VERSION}/g" .pakku/server-overrides/forge-auto-install.txt
+
+      - name: Cache pakku
+        uses: actions/cache@v4
+        with:
+          path: build/.cache
+          key: pakku-cache-${{ hashFiles('pakku-lock.json') }}
+          restore-keys: pakku-cache-
+
+      - name: Export modpack
+        run: |
+          java -jar pakku.jar fetch
+          java -jar pakku.jar export
+
+      - name: Prepare modrinth artifact
+        run: |
+          cd ./build/modrinth/
+          mv *.mrpack "$(basename -s .mrpack *.mrpack)-modrinth.mrpack"
+
+      - name: Upload modrinth artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.info.outputs.project_file_name }}-modrinth
+          path: ./build/modrinth/${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
+          if-no-files-found: error
+
+      - name: Prepare server artifact
+        run: |
+          cd ./build/serverpack/
+          mv *.zip "$(basename -s .zip *.zip)-serverpack.zip"
+
+      - name: Upload server artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.info.outputs.project_file_name }}-serverpack
+          path: ./build/serverpack/${{ needs.info.outputs.project_file_name }}-serverpack.zip
+          if-no-files-found: error
+
+  release-github:
+    name: Release to GitHub
+    needs: [info, build-project]
+    runs-on: ubuntu-latest
+    if: ${{ needs.info.outputs.make_release == 'true' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ needs.info.outputs.project_version }}
+          tag_name: ${{ needs.info.outputs.project_version }}
+          target_commitish: ${{ github.ref_name }}
+          body: |
+            ${{ needs.info.outputs.changelog }}
+            ${{ needs.info.outputs.diff }}
+          files: |
+            ${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
+            ${{ needs.info.outputs.project_file_name }}-serverpack.zip
+          prerelease: ${{ needs.info.outputs.release_type != 'release' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  release-modrinth:
+    name: Release to Modrinth
+    needs: [info, build-project, release-github]
+    runs-on: ubuntu-latest
+    if: ${{ needs.info.outputs.make_release == 'true' }}
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - name: Upload to Modrinth
+        uses: Kir-Antipov/mc-publish@v3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          files: |
+            ${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
+            ${{ needs.info.outputs.project_file_name }}-serverpack.zip
+          name: ${{ needs.info.outputs.project_full_name }}
+          version: ${{ needs.info.outputs.project_version }}
+          version-type: ${{ needs.info.outputs.release_type }}
+          game-versions: |
+            ${{ needs.info.outputs.mc_version }}
+          loaders: |
+            ${{ needs.info.outputs.loader_type }}
+          changelog: |
+            ${{ needs.info.outputs.changelog }}
+            ${{ needs.info.outputs.diff }}
+
+  discord-message:
+    name: Discord Message
+    needs: [info, release-github, release-modrinth]
+    runs-on: ubuntu-latest
+    if: needs.info.outputs.webhook_present == 'true'
+    steps:
+      - name: Truncate Changelog
+        id: truncated
+        uses: cisox/read-more-action@v1
+        with:
+          text: '${{ needs.info.outputs.changelog }}'
+          max_chars: '1450'
+
+      - name: Send Discord message
+        uses: hugoalh/send-discord-webhook-ghaction@v7
+        with:
+          key: ${{ secrets.DISCORD_WEBHOOK }}
+          username: "Panpack"
+          avatar_url: "https://media.forgecdn.net/avatars/thumbnails/798/822/64/64/638160732420962168.png"
+          content_links_no_embed: .+
+          content: |
+            **Release**: `${{ needs.info.outputs.project_full_name }}`
+            **Release Type**: `${{ needs.info.outputs.release_type }}`
+            **Game Version**: `${{ needs.info.outputs.mc_version }}`
+            
+            [Modrinth](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}) • [GitHub](${{ needs.release-github.outputs.url }}) • [Issues](https://github.com/${{ github.repository }}/issues)
+            ```markdown
+            ${{ steps.truncated.outputs.text }}
+            - ...```
+            ** [Read more...](${{ needs.release-github.outputs.url }}) **
