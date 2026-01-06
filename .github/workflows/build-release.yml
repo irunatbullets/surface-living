@@ -86,7 +86,7 @@ jobs:
 
           if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
             git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
-            java -jar pakku.jar diff --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
+            java -jar pakku.jar diff -v --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
             DIFF=$(cat PROJECTS_DIFF.md)
           fi
 
@@ -218,7 +218,13 @@ jobs:
           name: ${{ needs.info.outputs.project_version }}
           body: |
             ${{ needs.info.outputs.changelog }}
+
+            <details>
+            <summary>Version differences</summary>
+
             ${{ needs.info.outputs.diff }}
+
+            </details>
           files: |
             *.mrpack
             *.zip
@@ -250,7 +256,13 @@ jobs:
             ${{ needs.info.outputs.loader_type }}
           changelog: |
             ${{ needs.info.outputs.changelog }}
+
+            <details>
+            <summary>Version differences</summary>
+
             ${{ needs.info.outputs.diff }}
+
+            </details>
 
   discord-message:
     name: Discord Message
