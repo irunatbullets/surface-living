@@ -137,6 +137,7 @@ jobs:
     name: Build Project
     needs: [info]
     runs-on: ubuntu-latest
+    if: needs.info.outputs.pakku-lock_changed == 'true' || github.ref_name == 'main'
     steps:
       - uses: actions/checkout@v5
 
