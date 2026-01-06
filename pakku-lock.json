@@ -995,6 +995,43 @@
             ]
         },
         {
+            "pakku_id": "jRSAVmVtmv3F0Kn8",
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "modrinth": "easy-homes"
+            },
+            "name": {
+                "modrinth": "Easy Homes"
+            },
+            "id": {
+                "modrinth": "w4Z2NKqf"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "easy_homes-21.1.6-neoforge.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/w4Z2NKqf/versions/yVvbEiux/easy_homes-21.1.6-neoforge.jar",
+                    "id": "yVvbEiux",
+                    "parent_id": "w4Z2NKqf",
+                    "hashes": {
+                        "sha512": "fbb3f8a8e937c5c352954ae63503a7a19e94e7fb8d195d83f16d9699355afa1b925779507ca98795399aaa4d1173770600a8e091246e966c412eadc96e48c3f5",
+                        "sha1": "9a20c679c5a93dc447eb6569b4f7e946f809330f"
+                    },
+                    "required_dependencies": [],
+                    "size": 113057,
+                    "date_published": "2025-01-21T09:03:14.094641Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "3cWv8mS4aF786BGT",
             "type": "MOD",
             "side": "BOTH",
