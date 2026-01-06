@@ -86,7 +86,7 @@ jobs:
 
           if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
             git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
-            java -jar pakku.jar diff --markdown PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
+            java -jar pakku.jar diff --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
             DIFF=$(cat PROJECTS_DIFF.md)
           fi
 
