@@ -6,6 +6,7 @@ shaderpacks/*
 
 # Ignore instance artifacts
 .cache/
+command_history.txt
 coremods/
 data/
 defaultconfigs/
@@ -17,12 +18,12 @@ logs/
 mods/
 moonlight-global-datapacks/
 options.txt
-pfm/
 resourcepacks/
 saves/
 server-resource-packs/
 screenshots/
 texturepacks/
+TrashSlotSaveState.json
 usercache.json
 usernamecache.json
 xaero/

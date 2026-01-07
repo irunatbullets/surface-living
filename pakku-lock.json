@@ -1295,6 +1295,48 @@
             ]
         },
         {
+            "pakku_id": "LO4e46KpjNSixaJx",
+            "pakku_links": [
+                "Y2xkuBRCqW2j1ycS"
+            ],
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "modrinth": "ghost"
+            },
+            "name": {
+                "modrinth": "Ghost"
+            },
+            "id": {
+                "modrinth": "gJKLGvbS"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "ghosts-neoforge-1.21.1-1.2.0.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/gJKLGvbS/versions/OkF9OTs2/ghosts-neoforge-1.21.1-1.2.0.jar",
+                    "id": "OkF9OTs2",
+                    "parent_id": "gJKLGvbS",
+                    "hashes": {
+                        "sha512": "7d5af34303f1e241cd1cca35d4d6e7fd1e6d319a1d56aafd364aa0c78b13bcf79681f3893d32997fb553b84425211808717de55ae20c39292625477501bb22d1",
+                        "sha1": "4e4fc4b2c4592b841c0bd5ee5e356aec6f3a3ba6"
+                    },
+                    "required_dependencies": [
+                        "8BmcQJ2H"
+                    ],
+                    "size": 353377,
+                    "date_published": "2025-08-16T18:34:36.267053Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "4tac78BGUSlKRBOV",
             "type": "MOD",
             "side": "BOTH",
@@ -1520,7 +1562,7 @@
             "files": [
                 {
                     "type": "modrinth",
-                    "file_name": "Jade-1.21.1-NeoForge-15.10.3.jar",
+                    "file_name": "Jade-1.21.1-NeoForge-15.10.4.jar",
                     "mc_versions": [
                         "1.21.1"
                     ],
@@ -1528,16 +1570,16 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/nvQzSEkH/versions/43sRR8f6/Jade-1.21.1-NeoForge-15.10.3.jar",
-                    "id": "43sRR8f6",
+                    "url": "https://cdn.modrinth.com/data/nvQzSEkH/versions/VGRMP69T/Jade-1.21.1-NeoForge-15.10.4.jar",
+                    "id": "VGRMP69T",
                     "parent_id": "nvQzSEkH",
                     "hashes": {
-                        "sha512": "351926187c564d1f2bae2f084c77f80fe850dc90837153ef01506c049f16b02307196ed383ae25cd334530106aa741b12dd90f5e1b205439fde2b74d09274bc0",
-                        "sha1": "0c7e9b04e2481d26c9080dd5d32351490d1fed3a"
+                        "sha512": "2b5bada9a4ac58804c571e33f5c98c93e9903edffd92c4a870dd5f37eb12d901ed9fb854f69749fec256dd5f0c3c1fdbd3b8576aa5f6900e0857ebf3c517a66a",
+                        "sha1": "7d23a1dd515872bd6498b8edd06bb84e61f2c4e7"
                     },
                     "required_dependencies": [],
-                    "size": 725736,
-                    "date_published": "2025-08-06T00:53:03.569038Z"
+                    "size": 725725,
+                    "date_published": "2026-01-07T09:07:19.933157Z"
                 }
             ]
         },
@@ -2392,46 +2434,6 @@
                     "required_dependencies": [],
                     "size": 355748,
                     "date_published": "2025-10-07T17:08:57.321468Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "BeiFi1ntSwZbPcaa",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "modrinth": "paladins-furniture"
-            },
-            "name": {
-                "modrinth": "Paladin's Furniture Mod"
-            },
-            "id": {
-                "modrinth": "SISz7Qd3"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "paladin-furniture-mod-1.4.4-neoforge-mc1.21.1.jar",
-                    "mc_versions": [
-                        "1.21",
-                        "1.21.1"
-                    ],
-                    "loaders": [
-                        "neoforge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/SISz7Qd3/versions/U9HjuVCQ/paladin-furniture-mod-1.4.4-neoforge-mc1.21.1.jar",
-                    "id": "U9HjuVCQ",
-                    "parent_id": "SISz7Qd3",
-                    "hashes": {
-                        "sha512": "cd864205d328198d0e80756692fa5ebb72e80bc76a329119ed80ec582712dfd66f953482ba7d98dfc7c2f4fffd98de85d086864ec867087f9f913a0d748be44b",
-                        "sha1": "66cb08ffd664ea7db88dbd0db1c6a0f6153650f8"
-                    },
-                    "required_dependencies": [
-                        "P7dR8mSH"
-                    ],
-                    "size": 6091385,
-                    "date_published": "2025-09-01T06:17:19.506836Z"
                 }
             ]
         },
