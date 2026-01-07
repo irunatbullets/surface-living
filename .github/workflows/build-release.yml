@@ -16,20 +16,28 @@ concurrency:
 
 jobs:
   info:
-    uses: ./.github/workflows/info.yml
+    uses: ./.github/workflows/jobs/info.yml
 
   build-project:
-    uses: ./.github/workflows/build-project.yml
+    uses: ./.github/workflows/jobs/build-project.yml
     needs: info
+    with:
+      info-outputs: ${{ needs.info.outputs }}
 
   release-github:
-    uses: ./.github/workflows/release-github.yml
+    uses: ./.github/workflows/jobs/release-github.yml
     needs: [info, build-project]
+    with:
+      info-outputs: ${{ needs.info.outputs }}
 
   release-modrinth:
-    uses: ./.github/workflows/release-modrinth.yml
+    uses: ./.github/workflows/jobs/release-modrinth.yml
     needs: [info, build-project, release-github]
+    with:
+      info-outputs: ${{ needs.info.outputs }}
 
   message-discord:
-    uses: ./.github/workflows/message-discord.yml
+    uses: ./.github/workflows/jobs/message-discord.yml
     needs: [info, release-github, release-modrinth]
+    with:
+      info-outputs: ${{ needs.info.outputs }}
