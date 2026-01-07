@@ -1,5 +1,5 @@
-name: Validate PR
-run-name: "Validate PR #${{ github.run_number }}"
+name: Validation
+run-name: "Validation #${{ github.run_number }}"
 
 on:
   pull_request:
