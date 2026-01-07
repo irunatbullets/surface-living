@@ -220,7 +220,7 @@ jobs:
             ${{ needs.info.outputs.changelog }}
 
             <details>
-            <summary>Version differences</summary>
+            <summary>Mods diff</summary>
 
             ${{ needs.info.outputs.diff }}
 
@@ -258,7 +258,7 @@ jobs:
             ${{ needs.info.outputs.changelog }}
 
             <details>
-            <summary>Version differences</summary>
+            <summary>Mods diff</summary>
 
             ${{ needs.info.outputs.diff }}
 
