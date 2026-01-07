@@ -6,9 +6,13 @@ permissions:
 
 on:
   push:
-    branches: [dev, main]
+    branches: [main]
     paths-ignore:
       - '.github/workflows/**'
+      - '.gitignore'
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'LICENSE'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -36,6 +40,7 @@ jobs:
       webhook_present: ${{ steps.webhook.outputs.present }}
 
     steps:
+
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
@@ -91,7 +96,6 @@ jobs:
             DIFF=$(cat PROJECTS_DIFF.md)
           fi
 
-          TAG_EXISTS=$(git tag --list "$VERSION")
           VERSION_CHANGED=false
 
           LAST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
@@ -100,7 +104,7 @@ jobs:
           fi
 
           MAKE_RELEASE=false
-          if [ "${{ github.ref_name }}" = "main" ] && [ "$VERSION_CHANGED" = "true" ]; then
+          if [ "$VERSION_CHANGED" = "true" ]; then
             MAKE_RELEASE=true
           fi
 
@@ -125,7 +129,6 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-
       - name: Check for Pakku-lock changes
         uses: dorny/paths-filter@v3
         id: filter
@@ -147,8 +150,9 @@ jobs:
     name: Build Project
     needs: [info]
     runs-on: ubuntu-latest
-    if: needs.info.outputs.pakku-lock_changed == 'true' || github.ref_name == 'main'
+
     steps:
+
       - uses: actions/checkout@v5
 
       - name: Download Pakku
@@ -170,7 +174,7 @@ jobs:
             -e "s/LOADER_VERSION/${{ needs.info.outputs.loader_version }}/g" \
             -e "s/LOADER_TYPE/${{ needs.info.outputs.loader_type }}/g" \
             -e "s/MINECRAFT_VERSION/${{ needs.info.outputs.mc_version }}/g" \
-            .pakku/server-overrides/forge-auto-install.txt
+            .pakku/server-overrides/auto-install.txt
 
       - name: Cache pakku
         uses: actions/cache@v4
@@ -186,30 +190,30 @@ jobs:
 
       - name: Prepare artifacts
         run: |
-          FILE_SUFFIX=""
-          if [ "${{ needs.info.outputs.make_release }}" != 'true' ]; then
-            FILE_SUFFIX="-dev"
-          fi
+          mv build/modrinth/*.mrpack \
+            "${{ needs.info.outputs.project_file_name }}-modrinth.mrpack"
 
-          mv build/modrinth/*.mrpack build/modrinth/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-modrinth.mrpack
-          mv build/serverpack/*.zip build/serverpack/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-serverpack.zip
+          mv build/serverpack/*.zip \
+            "${{ needs.info.outputs.project_file_name }}-serverpack.zip"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: modrinth
-          path: build/modrinth/*.mrpack
+          name: ${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
+          path: ${{ needs.info.outputs.project_file_name }}-modrinth.mrpack
 
       - uses: actions/upload-artifact@v4
         with:
-          name: serverpack
-          path: build/serverpack/*.zip
+          name: ${{ needs.info.outputs.project_file_name }}-serverpack.zip
+          path: ${{ needs.info.outputs.project_file_name }}-serverpack.zip
 
   release-github:
     name: Release to GitHub
     needs: [info, build-project]
     if: needs.info.outputs.make_release == 'true'
     runs-on: ubuntu-latest
+
     steps:
+
       - uses: actions/download-artifact@v5
         with:
           merge-multiple: true
@@ -237,7 +241,9 @@ jobs:
     needs: [info, build-project, release-github]
     if: needs.info.outputs.make_release == 'true'
     runs-on: ubuntu-latest
+
     steps:
+
       - uses: actions/download-artifact@v5
         with:
           merge-multiple: true
@@ -271,6 +277,7 @@ jobs:
     needs: [info, release-github, release-modrinth]
     runs-on: ubuntu-latest
     if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
+
     steps:
       - name: Send Discord message
         uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
