@@ -1,0 +1,127 @@
+name: Project Info
+on:
+  workflow_call:
+
+jobs:
+  info:
+    name: Project Info
+    runs-on: ubuntu-latest
+    outputs:
+      project_version: ${{ steps.set_outputs.outputs.project_version }}
+      project_name: ${{ steps.set_outputs.outputs.project_name }}
+      project_file_name: ${{ steps.set_outputs.outputs.project_file_name }}
+      project_full_name: ${{ steps.set_outputs.outputs.project_full_name }}
+      changelog: ${{ steps.set_outputs.outputs.changelog }}
+      mc_version: ${{ steps.set_outputs.outputs.mc_version }}
+      loader_version: ${{ steps.set_outputs.outputs.loader_version }}
+      loader_type: ${{ steps.set_outputs.outputs.loader_type }}
+      release_type: ${{ steps.set_outputs.outputs.release_type }}
+      diff: ${{ steps.set_outputs.outputs.diff }}
+      make_release: ${{ steps.set_outputs.outputs.make_release }}
+      pakku-lock_changed: ${{ steps.filter.outputs.pakku-lock }}
+      webhook_present: ${{ steps.webhook.outputs.present }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate Pakku files
+        run: |
+          test -f pakku.json
+          test -f pakku-lock.json
+          test -f CHANGELOG.md
+
+      - name: Download Pakku
+        run: |
+          curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+      - name: Configure Pakku credentials
+        run: |
+          if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+            java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+          fi
+
+      - name: Pakku info + diff + changelog
+        id: set_outputs
+        run: |
+          git fetch --tags
+
+          # Extract version from CHANGELOG.md
+          VERSION=$(grep -m1 '^## ' CHANGELOG.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
+          if [ -z "$VERSION" ]; then
+            echo "Could not determine version from CHANGELOG.md"
+            exit 1
+          fi
+
+          PK_INFO=$(jq '.' pakku.json)
+          PK_LOCK=$(jq '.' pakku-lock.json)
+
+          NAME=$(echo "$PK_INFO" | jq -r '.name')
+          RELEASE_TYPE=$(echo "$PK_INFO" | jq -r '.release_type')
+          MC_VERSION=$(echo "$PK_LOCK" | jq -r '.mc_versions[0]')
+          LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
+          LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
+
+          # Extract latest changelog entry
+          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' CHANGELOG.md)
+          CLEAN=$(echo "$LATEST" | sed '/^EOF/d')
+
+          SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+          DIFF=""
+          LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
+          if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
+            git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
+            java -jar pakku.jar diff -v --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
+            DIFF=$(cat PROJECTS_DIFF.md)
+          fi
+
+          LAST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
+          VERSION_CHANGED=false
+          if [ -n "$LAST_TAG" ] && [ "$LAST_TAG" != "$VERSION" ]; then
+            VERSION_CHANGED=true
+          fi
+
+          MAKE_RELEASE=false
+          if [ "${{ github.ref_name }}" = "main" ] && [ "$VERSION_CHANGED" = "true" ]; then
+            MAKE_RELEASE=true
+          fi
+
+          {
+            echo "project_version=$VERSION"
+            echo "project_name=$NAME"
+            echo "project_full_name=$NAME $VERSION"
+            echo "project_file_name=$SAFE_NAME-$VERSION"
+            echo "mc_version=$MC_VERSION"
+            echo "loader_type=$LOADER_TYPE"
+            echo "loader_version=$LOADER_VERSION"
+            echo "release_type=$RELEASE_TYPE"
+            echo "make_release=$MAKE_RELEASE"
+
+            echo "changelog<<EOF"
+            echo "$CLEAN"
+            echo "EOF"
+
+            echo "diff<<EOF"
+            echo "$DIFF"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Check for Pakku-lock changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            pakku-lock:
+              - 'pakku-lock.json'
+
+      - name: Check for webhook
+        id: webhook
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi

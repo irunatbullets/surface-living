@@ -1,0 +1,301 @@
+name: Build Project
+run-name: "Project Build #${{ github.run_number }}"
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [dev, main]
+    paths-ignore:
+      - '.github/workflows/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  info:
+    name: Project Info
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'irunatbullets'
+    outputs:
+      project_version: ${{ steps.set_outputs.outputs.project_version }}
+      project_name: ${{ steps.set_outputs.outputs.project_name }}
+      project_file_name: ${{ steps.set_outputs.outputs.project_file_name }}
+      project_full_name: ${{ steps.set_outputs.outputs.project_full_name }}
+      changelog: ${{ steps.set_outputs.outputs.changelog }}
+      mc_version: ${{ steps.set_outputs.outputs.mc_version }}
+      loader_version: ${{ steps.set_outputs.outputs.loader_version }}
+      loader_type: ${{ steps.set_outputs.outputs.loader_type }}
+      release_type: ${{ steps.set_outputs.outputs.release_type }}
+      diff: ${{ steps.set_outputs.outputs.diff }}
+      make_release: ${{ steps.set_outputs.outputs.make_release }}
+      pakku-lock_changed: ${{ steps.filter.outputs.pakku-lock }}
+      webhook_present: ${{ steps.webhook.outputs.present }}
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate pakku files
+        run: |
+          test -f pakku.json
+          test -f pakku-lock.json
+          test -f CHANGELOG.md
+
+      - name: Download Pakku
+        run: |
+          curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+      - name: Configure Pakku credentials
+        run: |
+          if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+            java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+          fi
+
+      - name: Pakku info + diff + changelog
+        id: set_outputs
+        run: |
+          git fetch --tags
+
+          VERSION=$(grep -m1 '^## ' CHANGELOG.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
+
+          if [ -z "$VERSION" ]; then
+            echo "Could not determine version from CHANGELOG.md"
+            exit 1
+          fi
+
+          PK_INFO=$(jq '.' pakku.json)
+          PK_LOCK=$(jq '.' pakku-lock.json)
+
+          NAME=$(echo "$PK_INFO" | jq -r '.name')
+          RELEASE_TYPE=$(echo "$PK_INFO" | jq -r '.release_type')
+          MC_VERSION=$(echo "$PK_LOCK" | jq -r '.mc_versions[0]')
+          LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
+          LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
+
+          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' CHANGELOG.md)
+          CLEAN=$(echo "$LATEST" | sed '/^EOF/d')
+
+          SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+          DIFF=""
+          LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
+
+          if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
+            git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
+            java -jar pakku.jar diff -v --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
+            DIFF=$(cat PROJECTS_DIFF.md)
+          fi
+
+          TAG_EXISTS=$(git tag --list "$VERSION")
+          VERSION_CHANGED=false
+
+          LAST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
+          if [ -n "$LAST_TAG" ] && [ "$LAST_TAG" != "$VERSION" ]; then
+            VERSION_CHANGED=true
+          fi
+
+          MAKE_RELEASE=false
+          if [ "${{ github.ref_name }}" = "main" ] && [ "$VERSION_CHANGED" = "true" ]; then
+            MAKE_RELEASE=true
+          fi
+
+          {
+            echo "project_version=$VERSION"
+            echo "project_name=$NAME"
+            echo "project_full_name=$NAME $VERSION"
+            echo "project_file_name=$SAFE_NAME-$VERSION"
+            echo "mc_version=$MC_VERSION"
+            echo "loader_type=$LOADER_TYPE"
+            echo "loader_version=$LOADER_VERSION"
+            echo "release_type=$RELEASE_TYPE"
+            echo "make_release=$MAKE_RELEASE"
+
+            echo "changelog<<EOF"
+            echo "$CLEAN"
+            echo "EOF"
+
+            echo "diff<<EOF"
+            echo "$DIFF"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+
+      - name: Check for Pakku-lock changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            pakku-lock:
+              - 'pakku-lock.json'
+
+      - name: Check for webhook
+        id: webhook
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-project:
+    name: Build Project
+    needs: [info]
+    runs-on: ubuntu-latest
+    if: needs.info.outputs.pakku-lock_changed == 'true' || github.ref_name == 'main'
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download Pakku
+        run: |
+          curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+      - name: Configure Pakku credentials
+        run: |
+          if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+            java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+          fi
+
+      - name: Inject version + variables
+        run: |
+          jq --arg v "${{ needs.info.outputs.project_version }}" '.version = $v' pakku.json > pakku.json.tmp
+          mv pakku.json.tmp pakku.json
+
+          sed -i \
+            -e "s/LOADER_VERSION/${{ needs.info.outputs.loader_version }}/g" \
+            -e "s/LOADER_TYPE/${{ needs.info.outputs.loader_type }}/g" \
+            -e "s/MINECRAFT_VERSION/${{ needs.info.outputs.mc_version }}/g" \
+            .pakku/server-overrides/forge-auto-install.txt
+
+      - name: Cache pakku
+        uses: actions/cache@v4
+        with:
+          path: build/.cache
+          key: pakku-cache-${{ hashFiles('pakku-lock.json') }}
+          restore-keys: pakku-cache-
+
+      - name: Export modpack
+        run: |
+          java -jar pakku.jar fetch
+          java -jar pakku.jar export
+
+      - name: Prepare artifacts
+        run: |
+          FILE_SUFFIX=""
+          if [ "${{ needs.info.outputs.make_release }}" != 'true' ]; then
+            FILE_SUFFIX="-dev"
+          fi
+
+          mv build/modrinth/*.mrpack build/modrinth/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-modrinth.mrpack
+          mv build/serverpack/*.zip build/serverpack/${{ needs.info.outputs.project_file_name }}$FILE_SUFFIX-serverpack.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: modrinth
+          path: build/modrinth/*.mrpack
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: serverpack
+          path: build/serverpack/*.zip
+
+  release-github:
+    name: Release to GitHub
+    needs: [info, build-project]
+    if: needs.info.outputs.make_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.info.outputs.project_version }}
+          name: ${{ needs.info.outputs.project_version }}
+          body: |
+            ${{ needs.info.outputs.changelog }}
+
+            <details>
+            <summary>Mods diff</summary>
+
+            ${{ needs.info.outputs.diff }}
+
+            </details>
+          files: |
+            *.mrpack
+            *.zip
+          prerelease: ${{ needs.info.outputs.release_type != 'release' }}
+
+  release-modrinth:
+    name: Release to Modrinth
+    needs: [info, build-project, release-github]
+    if: needs.info.outputs.make_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - uses: Kir-Antipov/mc-publish@v3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          files: |
+            *.mrpack
+            *.zip
+          name: ${{ needs.info.outputs.project_full_name }}
+          version: ${{ needs.info.outputs.project_version }}
+          version-type: ${{ needs.info.outputs.release_type }}
+          game-versions: |
+            ${{ needs.info.outputs.mc_version }}
+          loaders: |
+            ${{ needs.info.outputs.loader_type }}
+          changelog: |
+            ${{ needs.info.outputs.changelog }}
+
+            <details>
+            <summary>Mods diff</summary>
+
+            ${{ needs.info.outputs.diff }}
+
+            </details>
+
+  discord-message:
+    name: Discord Message
+    needs: [info, release-github, release-modrinth]
+    runs-on: ubuntu-latest
+    if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
+    steps:
+      - name: Send Discord message
+        uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
+        with:
+          key: "${{secrets.DISCORD_WEBHOOK}}"
+          username: "irunatbullets"
+          avatar_url: "https://cdn.modrinth.com/data/PoHFfv3G/53d3a9085947f25804334a2c5de8f656f3bb2f20.png"
+          content_links_no_embed: .+
+          embeds: |
+            [
+              {
+                "title": "Surface Living — New Release [${{ needs.info.outputs.project_version }}]",
+                "url": "https://modrinth.com/modpack/surface-living/version/${{ needs.info.outputs.project_version }}",
+                "color": 5763719,
+                "description": "A fresh update to **Surface Living** is out.",
+                "fields": [
+                  {
+                    "name": "Links",
+                    "value": "→ [View this release on Modrinth](https://modrinth.com/modpack/surface-living/version/${{ needs.info.outputs.project_version }})\n
+                    → [Issue tracker & feedback](https://github.com/irunatbullets/surface-living/issues)\n
+                    → [Full changelog](https://modrinth.com/modpack/surface-living/changelog)\n
+                    → [Optional support](https://ko-fi.com/irunatbullets)"
+                  }
+                ],
+                "thumbnail": {
+                  "url": "https://cdn.modrinth.com/data/mPwYBsJ3/images/25bd95745cd6cc5d7d25c34c642792ffbdd48ead.png"
+                }
+              }
+            ]
+

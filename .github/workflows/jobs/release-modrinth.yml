@@ -1,0 +1,44 @@
+name: Release to Modrinth
+on:
+  workflow_call:
+    inputs:
+      info-outputs:
+        required: true
+        type: object
+
+jobs:
+  release-modrinth:
+    name: Release to Modrinth
+    runs-on: ubuntu-latest
+    needs: [info, build-project, release-github]
+    if: needs.info.outputs.make_release == 'true'
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3
+        with:
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          files: |
+            *.mrpack
+            *.zip
+          name: ${{ needs.info.outputs.project_full_name }}
+          version: ${{ needs.info.outputs.project_version }}
+          version-type: ${{ needs.info.outputs.release_type }}
+          game-versions: |
+            ${{ needs.info.outputs.mc_version }}
+          loaders: |
+            ${{ needs.info.outputs.loader_type }}
+          changelog: |
+            ${{ needs.info.outputs.changelog }}
+
+            <details>
+            <summary>Mods diff</summary>
+
+            ${{ needs.info.outputs.diff }}
+
+            </details>
