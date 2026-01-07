@@ -18,6 +18,7 @@ jobs:
   info:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - id: info
         uses: ./.github/actions/info
 
