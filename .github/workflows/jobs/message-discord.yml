@@ -23,16 +23,16 @@ jobs:
           embeds: |
             [
               {
-                "title": "Surface Living — New Release [${{ needs.info.outputs.project_version }}]",
-                "url": "https://modrinth.com/modpack/surface-living/version/${{ needs.info.outputs.project_version }}",
+                "title": "${{ needs.info.outputs.project_name }} — New Release [${{ needs.info.outputs.project_version }}]",
+                "url": "https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}/version/${{ needs.info.outputs.project_version }}",
                 "color": 5763719,
-                "description": "A fresh update to **Surface Living** is out.",
+                "description": "A fresh update to **${{ needs.info.outputs.project_name }}** is out.",
                 "fields": [
                   {
                     "name": "Links",
-                    "value": "→ [View this release on Modrinth](https://modrinth.com/modpack/surface-living/version/${{ needs.info.outputs.project_version }})\n
-                    → [Issue tracker & feedback](https://github.com/irunatbullets/surface-living/issues)\n
-                    → [Full changelog](https://modrinth.com/modpack/surface-living/changelog)\n
+                    "value": "→ [View this release on Modrinth](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}/version/${{ needs.info.outputs.project_version }})\n
+                    → [Issue tracker & feedback](https://github.com/irunatbullets/${{ needs.info.outputs.project_safe_name }}/issues)\n
+                    → [Full changelog](https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}/changelog)\n
                     → [Optional support](https://ko-fi.com/irunatbullets)"
                   }
                 ],

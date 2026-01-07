@@ -92,6 +92,7 @@ jobs:
           {
             echo "project_version=$VERSION"
             echo "project_name=$NAME"
+            echo "project_safe_name=$SAFE_NAME"
             echo "project_full_name=$NAME $VERSION"
             echo "project_file_name=$SAFE_NAME-$VERSION"
             echo "mc_version=$MC_VERSION"
