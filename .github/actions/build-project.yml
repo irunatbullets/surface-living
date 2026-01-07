@@ -1,0 +1,71 @@
+name: Build Project
+description: Builds the modpack and server pack using Pakku
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Download Pakku
+      shell: bash
+      run: |
+        curl -L -o pakku.jar https://github.com/juraj-hrivnak/pakku/releases/latest/download/pakku.jar
+
+    - name: Configure Pakku credentials
+      shell: bash
+      run: |
+        if [ -n "${{ secrets.CURSEFORGE_TOKEN }}" ]; then
+          java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
+        fi
+
+    - name: Inject version + variables
+      shell: bash
+      run: |
+        jq --arg v "${{ env.PROJECT_VERSION }}" '.version = $v' pakku.json > pakku.json.tmp
+        mv pakku.json.tmp pakku.json
+
+        sed -i \
+          -e "s/LOADER_VERSION/${{ env.LOADER_VERSION }}/g" \
+          -e "s/LOADER_TYPE/${{ env.LOADER_TYPE }}/g" \
+          -e "s/MINECRAFT_VERSION/${{ env.MC_VERSION }}/g" \
+          .pakku/server-overrides/forge-auto-install.txt
+
+    - name: Cache Pakku
+      uses: actions/cache@v4
+      with:
+        path: build/.cache
+        key: pakku-cache-${{ hashFiles('pakku-lock.json') }}
+        restore-keys: pakku-cache-
+
+    - name: Export modpack
+      shell: bash
+      run: |
+        java -jar pakku.jar fetch
+        java -jar pakku.jar export
+
+    - name: Prepare artifacts
+      shell: bash
+      run: |
+        FILE_SUFFIX=""
+        if [ "${{ env.MAKE_RELEASE }}" != 'true' ]; then
+          FILE_SUFFIX="-dev"
+        fi
+
+        mv build/modrinth/*.mrpack \
+          build/modrinth/${{ env.PROJECT_FILE_NAME }}$FILE_SUFFIX-modrinth.mrpack
+
+        mv build/serverpack/*.zip \
+          build/serverpack/${{ env.PROJECT_FILE_NAME }}$FILE_SUFFIX-serverpack.zip
+
+    - name: Upload Modrinth artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: modrinth
+        path: build/modrinth/*.mrpack
+
+    - name: Upload Serverpack artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: serverpack
+        path: build/serverpack/*.zip

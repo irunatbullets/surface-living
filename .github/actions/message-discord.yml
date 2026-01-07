@@ -1,0 +1,31 @@
+name: Message Discord
+description: Sends a Discord webhook notification for a new release
+
+runs:
+  using: composite
+  steps:
+    - name: Send Discord message
+      uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
+      with:
+        key: ${{ env.DISCORD_WEBHOOK }}
+        username: irunatbullets
+        avatar_url: https://cdn.modrinth.com/data/PoHFfv3G/53d3a9085947f25804334a2c5de8f656f3bb2f20.png
+        content_links_no_embed: .+
+        embeds: |
+          [
+            {
+              "title": "${{ env.PROJECT_NAME }} — New Release [${{ env.PROJECT_VERSION }}]",
+              "url": "https://modrinth.com/modpack/${{ env.MODRINTH_ID }}/version/${{ env.PROJECT_VERSION }}",
+              "color": 5763719,
+              "description": "A fresh update to **${{ env.PROJECT_NAME }}** is out.",
+              "fields": [
+                {
+                  "name": "Links",
+                  "value": "→ [View this release on Modrinth](https://modrinth.com/modpack/${{ env.MODRINTH_ID }}/version/${{ env.PROJECT_VERSION }})\n→ [Issue tracker & feedback](https://github.com/irunatbullets/${{ env.PROJECT_SAFE_NAME }}/issues)\n→ [Full changelog](https://modrinth.com/modpack/${{ env.MODRINTH_ID }}/changelog)\n→ [Optional support](https://ko-fi.com/irunatbullets)"
+                }
+              ],
+              "thumbnail": {
+                "url": "https://cdn.modrinth.com/data/mPwYBsJ3/images/25bd95745cd6cc5d7d25c34c642792ffbdd48ead.png"
+              }
+            }
+          ]

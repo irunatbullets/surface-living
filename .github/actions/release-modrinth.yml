@@ -1,0 +1,35 @@
+name: Release to Modrinth
+description: Publishes built artifacts to Modrinth
+
+runs:
+  using: composite
+  steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v5
+      with:
+        merge-multiple: true
+
+    - name: Publish to Modrinth
+      uses: Kir-Antipov/mc-publish@v3
+      with:
+        modrinth-token: ${{ env.MODRINTH_TOKEN }}
+        modrinth-id: ${{ env.MODRINTH_ID }}
+        files: |
+          *.mrpack
+          *.zip
+        name: ${{ env.PROJECT_FULL_NAME }}
+        version: ${{ env.PROJECT_VERSION }}
+        version-type: ${{ env.RELEASE_TYPE }}
+        game-versions: |
+          ${{ env.MC_VERSION }}
+        loaders: |
+          ${{ env.LOADER_TYPE }}
+        changelog: |
+          ${{ env.CHANGELOG }}
+
+          <details>
+          <summary>Mods diff</summary>
+
+          ${{ env.DIFF }}
+
+          </details>
