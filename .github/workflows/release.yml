@@ -88,18 +88,17 @@ jobs:
           SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
           DIFF=""
-          LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
 
-          if [ -n "$LATEST_TAG" ] && git cat-file -e "$LATEST_TAG":pakku-lock.json 2>/dev/null; then
-            git show "$LATEST_TAG":pakku-lock.json > pakku-lock-prev.json
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+
+          if [ -n "$LAST_TAG" ] && git cat-file -e "$LAST_TAG":pakku-lock.json 2>/dev/null; then
+            git show "$LAST_TAG":pakku-lock.json > pakku-lock-prev.json
             java -jar pakku.jar diff -v --markdown-diff PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json
             DIFF=$(cat PROJECTS_DIFF.md)
           fi
 
           VERSION_CHANGED=false
-
-          LAST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
-          if [ -n "$LAST_TAG" ] && [ "$LAST_TAG" != "$VERSION" ]; then
+          if [ -z "$LAST_TAG" ] || [ "$LAST_TAG" != "$VERSION" ]; then
             VERSION_CHANGED=true
           fi
 
