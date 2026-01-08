@@ -4,7 +4,7 @@ This file contains short, high-level summaries of each release. For full details
 
 ## [1.2.0]
 
-A couple of helpful ghosts have shown up in the neighborhood. I hope they aren't annoying as all of these geese.
+A couple of helpful ghosts have shown up in the neighborhood. I hope they aren't as annoying as all of these geese.
 
 ## [1.1.0]
 
