@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - '.github/workflows/**'
       - '.gitignore'
-      - 'CHANGELOG.md'
+      - 'RELEASES.md'
       - 'README.md'
       - 'LICENSE'
 
@@ -29,7 +29,7 @@ jobs:
       project_file_name: ${{ steps.set_outputs.outputs.project_file_name }}
       project_full_name: ${{ steps.set_outputs.outputs.project_full_name }}
       project_safe_name: ${{ steps.set_outputs.outputs.project_safe_name }}
-      changelog: ${{ steps.set_outputs.outputs.changelog }}
+      release_summary: ${{ steps.set_outputs.outputs.release_summary }}
       mc_version: ${{ steps.set_outputs.outputs.mc_version }}
       loader_version: ${{ steps.set_outputs.outputs.loader_version }}
       loader_type: ${{ steps.set_outputs.outputs.loader_type }}
@@ -49,7 +49,7 @@ jobs:
         run: |
           test -f pakku.json
           test -f pakku-lock.json
-          test -f CHANGELOG.md
+          test -f RELEASES.md
 
       - name: Download Pakku
         run: |
@@ -61,15 +61,15 @@ jobs:
             java -jar pakku.jar credentials set --cf-api-key="${{ secrets.CURSEFORGE_TOKEN }}"
           fi
 
-      - name: Pakku info + diff + changelog
+      - name: Pakku info + diff + release summary
         id: set_outputs
         run: |
           git fetch --tags
 
-          VERSION=$(grep -m1 '^## ' CHANGELOG.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
+          VERSION=$(grep -m1 '^## ' RELEASES.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
 
           if [ -z "$VERSION" ]; then
-            echo "Could not determine version from CHANGELOG.md"
+            echo "Could not determine version from RELEASES.md"
             exit 1
           fi
 
@@ -82,7 +82,7 @@ jobs:
           LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
           LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
 
-          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' CHANGELOG.md)
+          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' RELEASES.md)
           CLEAN=$(echo "$LATEST" | sed '/^EOF/d')
 
           SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
@@ -120,7 +120,7 @@ jobs:
             echo "release_type=$RELEASE_TYPE"
             echo "make_release=$MAKE_RELEASE"
 
-            echo "changelog<<EOF"
+            echo "release_summary<<EOF"
             echo "$CLEAN"
             echo "EOF"
 
@@ -223,14 +223,12 @@ jobs:
           tag_name: ${{ needs.info.outputs.project_version }}
           name: ${{ needs.info.outputs.project_version }}
           body: |
-            ${{ needs.info.outputs.changelog }}
+            ${{ needs.info.outputs.release_summary }}
 
-            <details>
-            <summary>Mods diff</summary>
+            **Mod differences**
 
             ${{ needs.info.outputs.diff }}
 
-            </details>
           files: |
             *.mrpack
             *.zip
@@ -263,10 +261,10 @@ jobs:
           loaders: |
             ${{ needs.info.outputs.loader_type }}
           changelog: |
-            ${{ needs.info.outputs.changelog }}
+            ${{ needs.info.outputs.release_summary }}
 
             <details>
-            <summary>Mods diff</summary>
+            <summary>Mod differeneces</summary>
 
             ${{ needs.info.outputs.diff }}
 
@@ -279,6 +277,12 @@ jobs:
     if: needs.info.outputs.webhook_present == 'true' && needs.info.outputs.make_release == 'true'
 
     steps:
+      - name: Prepare Discord release summary
+        id: discord_release_summary
+        run: |
+          # Escape newlines from the info job
+          ESCAPED=$(echo "${{ needs.info.outputs.release_summary }}" | sed ':a;N;$!ba;s/\n/\\n/g')
+          echo "release_summary_escaped=$ESCAPED" >> "$GITHUB_OUTPUT"
       - name: Send Discord message
         uses: hugoalh/send-discord-webhook-ghaction@v7.0.5
         with:
@@ -292,7 +296,7 @@ jobs:
                 "title": "${{ needs.info.outputs.project_name }} - New Release [${{ needs.info.outputs.project_version }}]",
                 "url": "https://modrinth.com/modpack/${{ vars.MODRINTH_ID }}/version/${{ needs.info.outputs.project_version }}",
                 "color": 5763719,
-                "description": "A fresh update to **${{ needs.info.outputs.project_name }}** is out.",
+                "description": "${{ steps.discord_release_summary.outputs.release_summary_escaped }}",
                 "fields": [
                   {
                     "name": "Links",
