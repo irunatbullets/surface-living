@@ -3,7 +3,7 @@
 	#The spawn weight of the duck mob.The higher it is, the higher are the spawn rates. See https://minecraft.fandom.com/wiki/Spawn#Animals for an explanation.
 	# Default: 6
 	# Range: > 0
-	duck_spawn_weight = 6
+	duck_spawn_weight = 3
 	#The minimum number of ducks that should be spawned at once in a group.
 	# Default: 2
 	# Range: > 0
@@ -25,7 +25,7 @@
 	#The spawn weight of the goose mob.The higher it is, the higher are the spawn rates. See https://minecraft.fandom.com/wiki/Spawn#Animals for an explanation.
 	# Default: 4
 	# Range: > 0
-	goose_spawn_weight = 4
+	goose_spawn_weight = 1
 	#The minimum number of geese that should be spawned at once in a group.
 	# Default: 2
 	# Range: > 0
