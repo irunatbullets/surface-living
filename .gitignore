@@ -39,9 +39,8 @@ config/*
 !config/inventoryessentials-common.toml
 !config/inventoryprofilesnext/inventoryprofiles.json
 !config/lighty
-!config/pfm.json
+!config/overworldmirror-common.toml
 !config/untitledduckmod-server.toml
 !config/xaero
 !config/xaerohud.txt
 !config/xaeropatreon.txt
-
