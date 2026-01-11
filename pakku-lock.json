@@ -803,6 +803,48 @@
             ]
         },
         {
+            "pakku_id": "Xss92SGgbweBaYBd",
+            "pakku_links": [
+                "Ay6Ya6rwMIxc02ww"
+            ],
+            "type": "MOD",
+            "side": "SERVER",
+            "slug": {
+                "modrinth": "cristel-lib"
+            },
+            "name": {
+                "modrinth": "Cristel Lib"
+            },
+            "id": {
+                "modrinth": "cl223EMc"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "cristellib-neoforge-1.21.1-3.0.2.1.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/cl223EMc/versions/K2pVXHCe/cristellib-neoforge-1.21.1-3.0.2.1.jar",
+                    "id": "K2pVXHCe",
+                    "parent_id": "cl223EMc",
+                    "hashes": {
+                        "sha512": "70a71bbe246b63a3cf30d97f09b5710aa811dd59d364ab490c2083b7c8d3766d4e207f6569c984d24f0ca40afde47404a1609f9641f878ca18d312b6f29d65d1",
+                        "sha1": "e35d8fd602ed89228e7cf9ef2ff47da7a37833de"
+                    },
+                    "required_dependencies": [
+                        "9s6osm5g"
+                    ],
+                    "size": 540740,
+                    "date_published": "2025-11-17T19:21:30.486059Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "NMzgtrq095rPL1Hp",
             "type": "MOD",
             "side": "BOTH",
@@ -953,6 +995,44 @@
                     ],
                     "size": 95656,
                     "date_published": "2025-09-07T12:29:32.721176Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "e5XoyV6jHCZiOlcE",
+            "type": "MOD",
+            "side": "SERVER",
+            "slug": {
+                "modrinth": "dungeons-and-taverns"
+            },
+            "name": {
+                "modrinth": "Dungeons and Taverns"
+            },
+            "id": {
+                "modrinth": "tpehi7ww"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "dungeons-and-taverns-v4.4.4.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/tpehi7ww/versions/BYUUUeZA/dungeons-and-taverns-v4.4.4.jar",
+                    "id": "BYUUUeZA",
+                    "parent_id": "tpehi7ww",
+                    "hashes": {
+                        "sha512": "83069dc336bcc212059f753923373d9522aa5953bf4b4fe2a8cfa666b4e28d2d017daa66c4b35e315c3be8d1ad60c2872879dd47cc1f47665ebbfd102da76976",
+                        "sha1": "249a5bdd0e8622b8a11f88758e6f5fd5fda036a3"
+                    },
+                    "required_dependencies": [],
+                    "size": 24859622,
+                    "date_published": "2024-09-29T19:53:08.688601Z"
                 }
             ]
         },
@@ -2438,6 +2518,48 @@
             ]
         },
         {
+            "pakku_id": "ny671SfQrxFcxLOl",
+            "pakku_links": [
+                "Tem9sAKxFdGSRVpv"
+            ],
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "modrinth": "overworld-mirror"
+            },
+            "name": {
+                "modrinth": "Overworld Mirror"
+            },
+            "id": {
+                "modrinth": "FrfbLzzv"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "overworld_mirror-neoforge-1.21.1-1.8.0.25.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/FrfbLzzv/versions/UekhoaXH/overworld_mirror-neoforge-1.21.1-1.8.0.25.jar",
+                    "id": "UekhoaXH",
+                    "parent_id": "FrfbLzzv",
+                    "hashes": {
+                        "sha512": "b6632a38723de6213a2f66bc6cd1726f3e60a64a17af8badc59e3ca37ad4f1e7b75fa34c6dbe84cbf050a93366a57858332c5180c3a30a66219d9650285f7396",
+                        "sha1": "3d603b52f9fc3d53c73b411b6e5600ce17a74ccf"
+                    },
+                    "required_dependencies": [
+                        "g2FGQs4R"
+                    ],
+                    "size": 247569,
+                    "date_published": "2025-05-22T19:09:14.411293Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "tzoZpKcgr7wUsu6v",
             "type": "MOD",
             "side": "BOTH",
@@ -3101,6 +3223,49 @@
             ]
         },
         {
+            "pakku_id": "D6BuSkT1LjTXgYAP",
+            "pakku_links": [
+                "Xss92SGgbweBaYBd"
+            ],
+            "type": "MOD",
+            "side": "SERVER",
+            "slug": {
+                "modrinth": "towns-and-towers"
+            },
+            "name": {
+                "modrinth": "Towns and Towers"
+            },
+            "id": {
+                "modrinth": "DjLobEOy"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "t_and_t-neoforge-fabric-1.13.7+1.21.1.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "fabric",
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/DjLobEOy/versions/E4Wy3O8Y/t_and_t-neoforge-fabric-1.13.7+1.21.1.jar",
+                    "id": "E4Wy3O8Y",
+                    "parent_id": "DjLobEOy",
+                    "hashes": {
+                        "sha512": "5edc9324618b481b60e1c970138a60842d79a9e486cc89c83f01ca41eb193c55ac622dedbe48799492c59b4e8d25c53757396f8fb3d4806eb5b1de12e5d7dd0c",
+                        "sha1": "eb7666961fb0b0d0ff8bc01ff62194952f6b6b8c"
+                    },
+                    "required_dependencies": [
+                        "cl223EMc"
+                    ],
+                    "size": 3641681,
+                    "date_published": "2025-10-14T19:58:21.734540Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "7FaQUr99FUjxU4pb",
             "type": "MOD",
             "side": "BOTH",
@@ -3137,6 +3302,43 @@
                     ],
                     "size": 123189,
                     "date_published": "2025-03-18T15:07:52.106481Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "Tem9sAKxFdGSRVpv",
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "modrinth": "u-team-core"
+            },
+            "name": {
+                "modrinth": "U Team Core"
+            },
+            "id": {
+                "modrinth": "g2FGQs4R"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "u_team_core-neoforge-1.21.1-5.6.2.384.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/g2FGQs4R/versions/A0Rx4Pvw/u_team_core-neoforge-1.21.1-5.6.2.384.jar",
+                    "id": "A0Rx4Pvw",
+                    "parent_id": "g2FGQs4R",
+                    "hashes": {
+                        "sha512": "b3219b26fe1c506a306e51ad19fcb3f6349e825ea2e976d13854af91509e72152c807d3adada08d541a4240a8ceba23fecfb019c9dd11adea1da21135eecc80f",
+                        "sha1": "19ff2102f18ff7ac147fcd94fed9af0a09231781"
+                    },
+                    "required_dependencies": [],
+                    "size": 579911,
+                    "date_published": "2025-05-19T18:42:39.737527Z"
                 }
             ]
         },
