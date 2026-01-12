@@ -197,20 +197,21 @@
             ]
         },
         {
-            "pakku_id": "AYN2ar7PsYasuAAK",
+            "pakku_id": "AOmkxlWIwR7Xxn5H",
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
-                "curseforge": "bclib-neoforge"
+                "modrinth": "bclib-neoforge"
             },
             "name": {
-                "curseforge": "BCLib Neoforge"
+                "modrinth": "BCLib Neoforge"
             },
             "id": {
-                "curseforge": "1422283"
+                "modrinth": "7bdKEtKC"
             },
             "files": [
                 {
-                    "type": "curseforge",
+                    "type": "modrinth",
                     "file_name": "bclib-21.0.15.jar",
                     "mc_versions": [
                         "1.21",
@@ -220,16 +221,16 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7443/298/bclib-21.0.15.jar",
-                    "id": "7443298",
-                    "parent_id": "1422283",
+                    "url": "https://cdn.modrinth.com/data/7bdKEtKC/versions/txoItQh7/bclib-21.0.15.jar",
+                    "id": "txoItQh7",
+                    "parent_id": "7bdKEtKC",
                     "hashes": {
-                        "sha1": "bd446e5a28c887334ccb473d0984c07f784d938c",
-                        "md5": "f3bc0792271cdbd920343fbcb0de4ea7"
+                        "sha512": "473347e06ac4797b9b8ac85483f004440c7ccf5d331bbbb849cef18deefd55d689907ff202a05d2be5d29c0e405795e968e1f9688a540fd32acc9bc799fb1806",
+                        "sha1": "bd446e5a28c887334ccb473d0984c07f784d938c"
                     },
                     "required_dependencies": [],
                     "size": 2141881,
-                    "date_published": "2026-01-10T20:29:16.507Z"
+                    "date_published": "2026-01-10T20:31:45.326005Z"
                 }
             ]
         },
@@ -308,25 +309,26 @@
             ]
         },
         {
-            "pakku_id": "zbXCdbQoTauIzxiM",
+            "pakku_id": "ptHGAXVKB3YbJzPo",
             "pakku_links": [
-                "AYN2ar7PsYasuAAK",
-                "QyhPlPYxRYmwuEDv",
-                "xsWMotMgEozayDfi"
+                "y4tR1cxRwu4kMZ6s",
+                "AOmkxlWIwR7Xxn5H",
+                "4alQV9QfT4L31v0A"
             ],
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
-                "curseforge": "betterend-neoforge"
+                "modrinth": "betterend-neoforge"
             },
             "name": {
-                "curseforge": "BetterEnd Neoforge"
+                "modrinth": "BetterEnd Neoforge"
             },
             "id": {
-                "curseforge": "1422294"
+                "modrinth": "IcERKldh"
             },
             "files": [
                 {
-                    "type": "curseforge",
+                    "type": "modrinth",
                     "file_name": "BetterEnd-21.0.18.jar",
                     "mc_versions": [
                         "1.21",
@@ -336,38 +338,44 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7445/431/BetterEnd-21.0.18.jar",
-                    "id": "7445431",
-                    "parent_id": "1422294",
+                    "url": "https://cdn.modrinth.com/data/IcERKldh/versions/Tsf7e9Nv/BetterEnd-21.0.18.jar",
+                    "id": "Tsf7e9Nv",
+                    "parent_id": "IcERKldh",
                     "hashes": {
-                        "sha1": "bb8d096a31b268c83fdd8e3e3c6bac5a69d28d5f",
-                        "md5": "dc5bf748d62ccd7e532f21d08c00c41b"
+                        "sha512": "93107384b64c58182b48edf3f6406323ed1474b9e7c46cee62ccc0d2879689ec8b8389a5a675192f0110c7e2143badd694096c6b7b6e742e3908512c8f484af3",
+                        "sha1": "bb8d096a31b268c83fdd8e3e3c6bac5a69d28d5f"
                     },
                     "required_dependencies": [
-                        "1422283",
-                        "1422284",
-                        "1422273"
+                        "HZmhgdJk",
+                        "7bdKEtKC",
+                        "R8uGDQpB"
                     ],
                     "size": 93537751,
-                    "date_published": "2026-01-11T08:41:22.593Z"
+                    "date_published": "2026-01-11T08:42:49.410966Z"
                 }
             ]
         },
         {
-            "pakku_id": "lYyzgKY2CQggc83V",
+            "pakku_id": "SixWqloiEK6L1mCQ",
+            "pakku_links": [
+                "4alQV9QfT4L31v0A",
+                "y4tR1cxRwu4kMZ6s",
+                "AOmkxlWIwR7Xxn5H"
+            ],
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
-                "curseforge": "betternether-neoforge"
+                "modrinth": "betternether-neoforge"
             },
             "name": {
-                "curseforge": "BetterNether Neoforge"
+                "modrinth": "BetterNether Neoforge"
             },
             "id": {
-                "curseforge": "1422293"
+                "modrinth": "fxX3RlL5"
             },
             "files": [
                 {
-                    "type": "curseforge",
+                    "type": "modrinth",
                     "file_name": "BetterNether-21.0.14.jar",
                     "mc_versions": [
                         "1.21",
@@ -377,16 +385,20 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7442/899/BetterNether-21.0.14.jar",
-                    "id": "7442899",
-                    "parent_id": "1422293",
+                    "url": "https://cdn.modrinth.com/data/fxX3RlL5/versions/8DhmvyWm/BetterNether-21.0.14.jar",
+                    "id": "8DhmvyWm",
+                    "parent_id": "fxX3RlL5",
                     "hashes": {
-                        "sha1": "e2565e79519f2f8f7688ec3a81fd1f060426dfb5",
-                        "md5": "f982bbfcab683ad076cd48981e0947b1"
+                        "sha512": "da2199633fa8fabf6c9b84e4215a51462b5d11d04da0c0ff9280b6b29717e4a3babd58c8fa4ebcb98cc2e4d903a3e4f2a8c708abb431ec13ba5efbc5e9123a3e",
+                        "sha1": "e2565e79519f2f8f7688ec3a81fd1f060426dfb5"
                     },
-                    "required_dependencies": [],
+                    "required_dependencies": [
+                        "R8uGDQpB",
+                        "HZmhgdJk",
+                        "7bdKEtKC"
+                    ],
                     "size": 23211575,
-                    "date_published": "2026-01-10T18:25:39.987Z"
+                    "date_published": "2026-01-10T18:29:03.375790Z"
                 }
             ]
         },
@@ -3786,23 +3798,25 @@
             ]
         },
         {
-            "pakku_id": "QyhPlPYxRYmwuEDv",
+            "pakku_id": "4alQV9QfT4L31v0A",
             "pakku_links": [
-                "xsWMotMgEozayDfi"
+                "AOmkxlWIwR7Xxn5H",
+                "y4tR1cxRwu4kMZ6s"
             ],
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
-                "curseforge": "worldweaver-neoforge"
+                "modrinth": "worldweaver-neoforge"
             },
             "name": {
-                "curseforge": "WorldWeaver Neoforge"
+                "modrinth": "WorldWeaver Neoforge"
             },
             "id": {
-                "curseforge": "1422284"
+                "modrinth": "R8uGDQpB"
             },
             "files": [
                 {
-                    "type": "curseforge",
+                    "type": "modrinth",
                     "file_name": "worldweaver-21.0.15.jar",
                     "mc_versions": [
                         "1.21",
@@ -3812,37 +3826,38 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7434/170/worldweaver-21.0.15.jar",
-                    "id": "7434170",
-                    "parent_id": "1422284",
+                    "url": "https://cdn.modrinth.com/data/R8uGDQpB/versions/nAsLkO2i/worldweaver-21.0.15.jar",
+                    "id": "nAsLkO2i",
+                    "parent_id": "R8uGDQpB",
                     "hashes": {
-                        "sha1": "7428972318b721c37c62b652a0424e6a1f5b43c6",
-                        "md5": "97a256c90285f11e333e22b309777ef6"
+                        "sha512": "b73f1880c8173f8249bbab14e21982d4bb9d3f05b10d62c744d4b97dc696422c0592105492f91ad21cc9ce6763594da2dd47b9d2ce0102a8822284a631beabd9",
+                        "sha1": "7428972318b721c37c62b652a0424e6a1f5b43c6"
                     },
                     "required_dependencies": [
-                        "1422273",
-                        "1422283"
+                        "7bdKEtKC",
+                        "HZmhgdJk"
                     ],
                     "size": 2150956,
-                    "date_published": "2026-01-08T17:31:55.087Z"
+                    "date_published": "2026-01-09T07:19:06.386117Z"
                 }
             ]
         },
         {
-            "pakku_id": "xsWMotMgEozayDfi",
+            "pakku_id": "y4tR1cxRwu4kMZ6s",
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
-                "curseforge": "wunderlib-neoforge"
+                "modrinth": "wunderlib-neoforge"
             },
             "name": {
-                "curseforge": "WunderLib Neoforge"
+                "modrinth": "WunderLib Neoforge"
             },
             "id": {
-                "curseforge": "1422273"
+                "modrinth": "HZmhgdJk"
             },
             "files": [
                 {
-                    "type": "curseforge",
+                    "type": "modrinth",
                     "file_name": "wunderlib-21.0.9.jar",
                     "mc_versions": [
                         "1.21",
@@ -3852,16 +3867,16 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7426/7/wunderlib-21.0.9.jar",
-                    "id": "7426007",
-                    "parent_id": "1422273",
+                    "url": "https://cdn.modrinth.com/data/HZmhgdJk/versions/gzkIe0y0/wunderlib-21.0.9.jar",
+                    "id": "gzkIe0y0",
+                    "parent_id": "HZmhgdJk",
                     "hashes": {
-                        "sha1": "1501dc33f21cff317edc1487370cc47a34bd92d7",
-                        "md5": "812efcbf427bd2a5e5c79d230adddd2f"
+                        "sha512": "5d7437d6a2fe4e38843c70550597a42e7ef1f2561cead4bcb974f7d499a2d5f3cf9639b424ec6ecb0d97866d59579c984bbd833d48627825ac8021af1afc0939",
+                        "sha1": "d78e56fa30e789f58cdbf363be4a74441e13ff9b"
                     },
                     "required_dependencies": [],
                     "size": 378818,
-                    "date_published": "2026-01-06T17:06:18.713Z"
+                    "date_published": "2026-01-08T08:25:18.046880Z"
                 }
             ]
         },
