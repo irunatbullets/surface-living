@@ -197,6 +197,43 @@
             ]
         },
         {
+            "pakku_id": "AYN2ar7PsYasuAAK",
+            "type": "MOD",
+            "slug": {
+                "curseforge": "bclib-neoforge"
+            },
+            "name": {
+                "curseforge": "BCLib Neoforge"
+            },
+            "id": {
+                "curseforge": "1422283"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "bclib-21.0.15.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7443/298/bclib-21.0.15.jar",
+                    "id": "7443298",
+                    "parent_id": "1422283",
+                    "hashes": {
+                        "sha1": "bd446e5a28c887334ccb473d0984c07f784d938c",
+                        "md5": "f3bc0792271cdbd920343fbcb0de4ea7"
+                    },
+                    "required_dependencies": [],
+                    "size": 2141881,
+                    "date_published": "2026-01-10T20:29:16.507Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "WDUnO4kc3vSaKAgT",
             "type": "MOD",
             "side": "BOTH",
@@ -267,6 +304,89 @@
                     "required_dependencies": [],
                     "size": 253092,
                     "date_published": "2025-07-12T09:09:43.547205Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "zbXCdbQoTauIzxiM",
+            "pakku_links": [
+                "AYN2ar7PsYasuAAK",
+                "QyhPlPYxRYmwuEDv",
+                "xsWMotMgEozayDfi"
+            ],
+            "type": "MOD",
+            "slug": {
+                "curseforge": "betterend-neoforge"
+            },
+            "name": {
+                "curseforge": "BetterEnd Neoforge"
+            },
+            "id": {
+                "curseforge": "1422294"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "BetterEnd-21.0.18.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7445/431/BetterEnd-21.0.18.jar",
+                    "id": "7445431",
+                    "parent_id": "1422294",
+                    "hashes": {
+                        "sha1": "bb8d096a31b268c83fdd8e3e3c6bac5a69d28d5f",
+                        "md5": "dc5bf748d62ccd7e532f21d08c00c41b"
+                    },
+                    "required_dependencies": [
+                        "1422283",
+                        "1422284",
+                        "1422273"
+                    ],
+                    "size": 93537751,
+                    "date_published": "2026-01-11T08:41:22.593Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "lYyzgKY2CQggc83V",
+            "type": "MOD",
+            "slug": {
+                "curseforge": "betternether-neoforge"
+            },
+            "name": {
+                "curseforge": "BetterNether Neoforge"
+            },
+            "id": {
+                "curseforge": "1422293"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "BetterNether-21.0.14.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7442/899/BetterNether-21.0.14.jar",
+                    "id": "7442899",
+                    "parent_id": "1422293",
+                    "hashes": {
+                        "sha1": "e2565e79519f2f8f7688ec3a81fd1f060426dfb5",
+                        "md5": "f982bbfcab683ad076cd48981e0947b1"
+                    },
+                    "required_dependencies": [],
+                    "size": 23211575,
+                    "date_published": "2026-01-10T18:25:39.987Z"
                 }
             ]
         },
@@ -2426,98 +2546,6 @@
             ]
         },
         {
-            "pakku_id": "CvxBI2KyMU4F0s4N",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "modrinth": "netherex"
-            },
-            "name": {
-                "modrinth": "NetherEx"
-            },
-            "id": {
-                "modrinth": "2PIVd4Ik"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "NetherEx-neoforge-1.21.1-1.2.3.jar",
-                    "mc_versions": [
-                        "1.21.1"
-                    ],
-                    "loaders": [
-                        "neoforge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/2PIVd4Ik/versions/JnvVOa9z/NetherEx-neoforge-1.21.1-1.2.3.jar",
-                    "id": "JnvVOa9z",
-                    "parent_id": "2PIVd4Ik",
-                    "hashes": {
-                        "sha512": "fdb1d2b151dce372dbd6c4b82e7d99933903d1c7542deadbae7a5e4c2fbde7e484de471fae475999514c44cc66f3d341b2c1a65d0c0a6cc091cdd91cc170b5d0",
-                        "sha1": "cc4032ecf6f174fd03676bcecee50e187d0f13d9"
-                    },
-                    "required_dependencies": [
-                        "P7dR8mSH",
-                        "kkmrDlKT",
-                        "M1953qlQ",
-                        "8BmcQJ2H"
-                    ],
-                    "size": 1731034,
-                    "date_published": "2025-09-12T07:07:37.029507Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "mYwBqnuxUkA8Kwrx",
-            "type": "MOD",
-            "side": "SERVER",
-            "slug": {
-                "modrinth": "nullscape"
-            },
-            "name": {
-                "modrinth": "Nullscape"
-            },
-            "id": {
-                "modrinth": "LPjGiSO4"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "Nullscape_1.21.x_v1.2.14.jar",
-                    "mc_versions": [
-                        "1.21",
-                        "1.21.1",
-                        "1.21.2",
-                        "1.21.3",
-                        "1.21.4",
-                        "1.21.5",
-                        "1.21.6",
-                        "1.21.7",
-                        "1.21.8",
-                        "1.21.9",
-                        "1.21.10"
-                    ],
-                    "loaders": [
-                        "fabric",
-                        "forge",
-                        "neoforge",
-                        "quilt"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/LPjGiSO4/versions/3fv8O3xX/Nullscape_1.21.x_v1.2.14.jar",
-                    "id": "3fv8O3xX",
-                    "parent_id": "LPjGiSO4",
-                    "hashes": {
-                        "sha512": "b35a9dfdc7180ca851aea378ee4687e18b3aae717c16870a7762afc67dc0c77598fb2c4a62cb12d6ed0eacf7c9166520e0a3e7dce20da09817065d27e62c8b44",
-                        "sha1": "ae8e1cbd5de6cf6f450bb44cd69cd284dad690dd"
-                    },
-                    "required_dependencies": [],
-                    "size": 355748,
-                    "date_published": "2025-10-07T17:08:57.321468Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "ny671SfQrxFcxLOl",
             "pakku_links": [
                 "Tem9sAKxFdGSRVpv"
@@ -3754,6 +3782,86 @@
                     "required_dependencies": [],
                     "size": 67721,
                     "date_published": "2025-09-04T07:24:00.242456Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "QyhPlPYxRYmwuEDv",
+            "pakku_links": [
+                "xsWMotMgEozayDfi"
+            ],
+            "type": "MOD",
+            "slug": {
+                "curseforge": "worldweaver-neoforge"
+            },
+            "name": {
+                "curseforge": "WorldWeaver Neoforge"
+            },
+            "id": {
+                "curseforge": "1422284"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "worldweaver-21.0.15.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7434/170/worldweaver-21.0.15.jar",
+                    "id": "7434170",
+                    "parent_id": "1422284",
+                    "hashes": {
+                        "sha1": "7428972318b721c37c62b652a0424e6a1f5b43c6",
+                        "md5": "97a256c90285f11e333e22b309777ef6"
+                    },
+                    "required_dependencies": [
+                        "1422273",
+                        "1422283"
+                    ],
+                    "size": 2150956,
+                    "date_published": "2026-01-08T17:31:55.087Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "xsWMotMgEozayDfi",
+            "type": "MOD",
+            "slug": {
+                "curseforge": "wunderlib-neoforge"
+            },
+            "name": {
+                "curseforge": "WunderLib Neoforge"
+            },
+            "id": {
+                "curseforge": "1422273"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "wunderlib-21.0.9.jar",
+                    "mc_versions": [
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7426/7/wunderlib-21.0.9.jar",
+                    "id": "7426007",
+                    "parent_id": "1422273",
+                    "hashes": {
+                        "sha1": "1501dc33f21cff317edc1487370cc47a34bd92d7",
+                        "md5": "812efcbf427bd2a5e5c79d230adddd2f"
+                    },
+                    "required_dependencies": [],
+                    "size": 378818,
+                    "date_published": "2026-01-06T17:06:18.713Z"
                 }
             ]
         },
