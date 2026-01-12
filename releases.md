@@ -4,7 +4,7 @@ This file contains short, high-level summaries of each release. For full details
 
 ## [Unreleased]
 
-Added [Phantom Utilities](https://modrinth.com/mod/phantom-utilities) to give phantoms a reason to exist beyond just being annoying, plus updated several mods. Also some extra structures plus a second overworld, because sometimes one isn't enough!
+Added [Phantom Utilities](https://modrinth.com/mod/phantom-utilities) to give phantoms a reason to exist beyond just being annoying, plus updated several mods. Also some extra structures plus a second overworld, because sometimes one isn't enough! Replaced the nether and the end.
 
 ## [1.0.0]
 

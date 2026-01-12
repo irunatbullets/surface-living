@@ -25,11 +25,11 @@ jobs:
               - 'configs/**'
               - 'shaderpacks/**'
 
-      - name: Validate RELEASES.md version
+      - name: Validate releases.md version
         if: steps.filter.outputs.trigger-release == 'true'
         run: |
           # Get the top header
-          TOP_HEADER=$(grep -m1 '^## ' RELEASES.md)
+          TOP_HEADER=$(grep -m1 '^## ' releases.md)
 
           if [[ "$TOP_HEADER" == "## [Unreleased]" ]]; then
             echo "Unreleased summary found — release not ready." >&2
@@ -40,7 +40,7 @@ jobs:
           NEW_VERSION=$(echo "$TOP_HEADER" | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?.*/\1/')
 
           if [ -z "$NEW_VERSION" ]; then
-            echo "No valid version found in RELEASES.md — release not ready." >&2
+            echo "No valid version found in releases.md — release not ready." >&2
             exit 1
           fi
 
@@ -49,7 +49,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --abbrev=0 origin/main 2>/dev/null || true)
 
           if [ "$NEW_VERSION" = "$LATEST_TAG" ]; then
-            echo "ERROR: RELEASES.md has not been updated with a new version. Release cannot proceed." >&2
+            echo "ERROR: releases.md has not been updated with a new version. Release cannot proceed." >&2
             exit 1
           fi
 
