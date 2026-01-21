@@ -1993,7 +1993,7 @@
             "files": [
                 {
                     "type": "modrinth",
-                    "file_name": "lootr-neoforge-1.21.1-1.11.36.110.jar",
+                    "file_name": "lootr-neoforge-1.21.1-1.11.36.111.jar",
                     "mc_versions": [
                         "1.21.1"
                     ],
@@ -2001,16 +2001,16 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/EltpO5cN/versions/fAKcTzg3/lootr-neoforge-1.21.1-1.11.36.110.jar",
-                    "id": "fAKcTzg3",
+                    "url": "https://cdn.modrinth.com/data/EltpO5cN/versions/MUSxKfmE/lootr-neoforge-1.21.1-1.11.36.111.jar",
+                    "id": "MUSxKfmE",
                     "parent_id": "EltpO5cN",
                     "hashes": {
-                        "sha512": "9902345ef5cf80aa866329cb8f3db35c327a8a8128e995724add604bd89a996d613983f719fd08b4f082a2a7ff0039f75e3e347e1890a91c14abc667257b6064",
-                        "sha1": "406211226f2fe1e40eb29db9fcdba1a557c1a068"
+                        "sha512": "c31469f24e28fa9b110bffa7e2ce7752b5f44fcfbcff2ed24ba43ca7af37fc640a33a553dcd2f945bd2d95d2adcff0908a030ecad3daee01dab5f5acfff6e680",
+                        "sha1": "7a4100034c0df9d51b67cd13ad7d644d11cb48ca"
                     },
                     "required_dependencies": [],
-                    "size": 939085,
-                    "date_published": "2026-01-03T06:04:17.490318Z"
+                    "size": 947702,
+                    "date_published": "2026-01-19T10:45:07.464195Z"
                 }
             ]
         },
@@ -2909,7 +2909,7 @@
             "files": [
                 {
                     "type": "modrinth",
-                    "file_name": "sophisticatedcore-1.21.1-1.3.102.1368.jar",
+                    "file_name": "sophisticatedcore-1.21.1-1.3.106.1419.jar",
                     "mc_versions": [
                         "1.21.1"
                     ],
@@ -2917,16 +2917,16 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/nmoqTijg/versions/DgTFIEt8/sophisticatedcore-1.21.1-1.3.102.1368.jar",
-                    "id": "DgTFIEt8",
+                    "url": "https://cdn.modrinth.com/data/nmoqTijg/versions/BteMlDq5/sophisticatedcore-1.21.1-1.3.106.1419.jar",
+                    "id": "BteMlDq5",
                     "parent_id": "nmoqTijg",
                     "hashes": {
-                        "sha512": "4259152fb2933224ba86536f07d3886e9f399c306cdf3310e5085a9a20e300790af751f0c7ff85a811a7d861b7de3698a4f8edd2a233340ac6c543c923deabdc",
-                        "sha1": "7f7e7407349b82498ab4ae27d2fb5a314fcf51ac"
+                        "sha512": "70c894a0cebdf516e82d0f95cc0625fb9e3f721dbbf9b9dc4257cbc1448f08e63d2c2762936be61a4fbffa229e38e1f3c6136b5b18209072fe34f9022e95afa9",
+                        "sha1": "508957b32924a84d33f812ec32599c713a4407df"
                     },
                     "required_dependencies": [],
-                    "size": 1449478,
-                    "date_published": "2026-01-13T16:19:41.259299Z"
+                    "size": 1453929,
+                    "date_published": "2026-01-21T15:44:47.889247Z"
                 }
             ]
         },
@@ -2946,7 +2946,7 @@
             "files": [
                 {
                     "type": "modrinth",
-                    "file_name": "sophisticatedstorage-1.21.1-1.5.20.1422.jar",
+                    "file_name": "sophisticatedstorage-1.21.1-1.5.22.1445.jar",
                     "mc_versions": [
                         "1.21.1"
                     ],
@@ -2954,18 +2954,18 @@
                         "neoforge"
                     ],
                     "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/hMlaZH8f/versions/dstiyGpG/sophisticatedstorage-1.21.1-1.5.20.1422.jar",
-                    "id": "dstiyGpG",
+                    "url": "https://cdn.modrinth.com/data/hMlaZH8f/versions/zILvLMjL/sophisticatedstorage-1.21.1-1.5.22.1445.jar",
+                    "id": "zILvLMjL",
                     "parent_id": "hMlaZH8f",
                     "hashes": {
-                        "sha512": "55ae83085b8e951ffb9af6bfb8a866a1036a3ccc755d089cc8acd0c1b27321793b58d6abc2979d06cb630075708e730eada5cd0d9fcb3b56454763d74c11eda5",
-                        "sha1": "f019a2d6d938adae1ce80244fd89d63be79d0bf3"
+                        "sha512": "a8ceb4e57bd035280057c7f170eedcfbbf2dd533dd455ec7eb0537db462743a06918dd2d32f150c1028f44e9cc5176bb3262bdfe7dc8bb9d559b9c845dfd7df6",
+                        "sha1": "98f8b73fb6f058114ef7ae6b4c2af1fdf123bce4"
                     },
                     "required_dependencies": [
                         "nmoqTijg"
                     ],
-                    "size": 1654683,
-                    "date_published": "2026-01-09T09:49:43.552856Z"
+                    "size": 1654945,
+                    "date_published": "2026-01-20T16:29:40.792690Z"
                 }
             ]
         },
@@ -3612,6 +3612,43 @@
                     "required_dependencies": [],
                     "size": 11439,
                     "date_published": "2025-12-02T23:25:49.518166Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "R8MkuoJfUP69MpMV",
+            "type": "RESOURCE_PACK",
+            "side": "CLIENT",
+            "slug": {
+                "modrinth": "whimscape-x-overworld-mirror"
+            },
+            "name": {
+                "modrinth": "Whimscape x Overworld Mirror"
+            },
+            "id": {
+                "modrinth": "GELlLx1H"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "whimscape-x-overworld-mirror.zip",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "minecraft"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/GELlLx1H/versions/kzy6AJgF/whimscape-x-overworld-mirror.zip",
+                    "id": "kzy6AJgF",
+                    "parent_id": "GELlLx1H",
+                    "hashes": {
+                        "sha512": "c6ce15e7c51c5d54496c05173644a28218f4aad63088f08dc2e8fce07fa2c6aec2857cd4b4922a0f13b02b40a9cf3a982711e6e7a4f422634406f72acce53c45",
+                        "sha1": "fd16820096b01a64d06212cb9eb64d2b04e122cc"
+                    },
+                    "required_dependencies": [],
+                    "size": 4039,
+                    "date_published": "2026-01-12T16:00:47.090087Z"
                 }
             ]
         },
