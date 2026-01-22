@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - '.github/workflows/**'
       - '.gitignore'
-      - 'RELEASES.md'
+      - 'releases.md'
       - 'README.md'
       - 'LICENSE'
 
@@ -49,7 +49,7 @@ jobs:
         run: |
           test -f pakku.json
           test -f pakku-lock.json
-          test -f RELEASES.md
+          test -f releases.md
 
       - name: Download Pakku
         run: |
@@ -66,10 +66,10 @@ jobs:
         run: |
           git fetch --tags
 
-          VERSION=$(grep -m1 '^## ' RELEASES.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
+          VERSION=$(grep -m1 '^## ' releases.md | sed -E 's/^## \[?([0-9]+\.[0-9]+\.[0-9]+)\]?/\1/')
 
           if [ -z "$VERSION" ]; then
-            echo "Could not determine version from RELEASES.md"
+            echo "Could not determine version from releases.md"
             exit 1
           fi
 
@@ -82,7 +82,7 @@ jobs:
           LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
           LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
 
-          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' RELEASES.md)
+          LATEST=$(awk '/^## \[/{if(!found){found=1; next} else{exit}} found{print}' releases.md)
           CLEAN=$(echo "$LATEST" | sed '/^EOF/d')
 
           SAFE_NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
