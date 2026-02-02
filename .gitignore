@@ -29,6 +29,7 @@ usernamecache.json
 xaero/
 .mixin.out/
 XaeroWaypoints_BACKUP*
+crash-reports/
 
 # Ignore everything in config/
 config/*
