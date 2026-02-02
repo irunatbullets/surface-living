@@ -4,7 +4,7 @@ This file contains short, high-level summaries of each release. For full details
 
 ## [1.2.0]
 
-Add Not Just Mushrooms so we can decorate our house with cute mushrooms lamps!
+Added Not Just Mushrooms so you can decorate our house with cute mushrooms lamps!
 
 ## [1.1.0]
 
