@@ -2423,6 +2423,43 @@
             ]
         },
         {
+            "pakku_id": "qyg7My7FgH136PIj",
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "modrinth": "not-just-mushrooms"
+            },
+            "name": {
+                "modrinth": "Not Just Mushrooms"
+            },
+            "id": {
+                "modrinth": "HPP4Hf2j"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "notjustmushrooms-1.0.0.jar",
+                    "mc_versions": [
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/HPP4Hf2j/versions/N5NUzOpA/notjustmushrooms-1.0.0.jar",
+                    "id": "N5NUzOpA",
+                    "parent_id": "HPP4Hf2j",
+                    "hashes": {
+                        "sha512": "a9418cede06a1ebc4092c5de7083b324a6d102def49769845ddbe1f191cca6faa9e8f54a4e989a9aeb7a555be585e4abb231a54c9da2c81f2e874e0c6b56fded",
+                        "sha1": "985067fa7357ba294afb515444fbb372cea0ceab"
+                    },
+                    "required_dependencies": [],
+                    "size": 25870,
+                    "date_published": "2026-02-02T14:40:10.630175Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "ny671SfQrxFcxLOl",
             "pakku_links": [
                 "Tem9sAKxFdGSRVpv"
