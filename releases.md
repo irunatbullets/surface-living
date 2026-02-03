@@ -2,6 +2,10 @@
 
 This file contains short, high-level summaries of each release. For full details, including mod diffs, see the [GitHub Releases](https://github.com/irunatbullets/surface-living/releases) page.
 
+## [Unreleased]
+
+Just some boring old updates...
+
 ## [1.2.0]
 
 Added Not Just Mushrooms so you can decorate our house with cute mushrooms lamps!
