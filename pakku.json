@@ -1,6 +1,7 @@
 {
     "name": "Surface Living",
     "version": "0.0.0",
+    "release_type": "release",
     "overrides": [
         "config/bridgingmod.json",
         "config/defaultoptions",
