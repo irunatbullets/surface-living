@@ -2,10 +2,6 @@
 
 This file contains short, high-level summaries of each release. For full details, including mod diffs, see the [GitHub Releases](https://github.com/irunatbullets/surface-living/releases) page.
 
-## [1.2.2]
-
-Fixed neoforge version. Sorry everyone!
-
 ## [1.2.1]
 
 Just some boring old updates... Plus, I fixed the server pack (which you can find in the releases on github)
