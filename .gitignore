@@ -9,6 +9,7 @@ shaderpacks/*
 command_history.txt
 coremods/
 data/
+debug/
 defaultconfigs/
 downloads/
 dynamic-data-pack-cache/
@@ -20,6 +21,8 @@ moonlight-global-datapacks/
 options.txt
 resourcepacks/
 saves/
+servers.dat
+servers.dat_old
 server-resource-packs/
 screenshots/
 texturepacks/
@@ -30,8 +33,6 @@ xaero/
 .mixin.out/
 XaeroWaypoints_BACKUP*
 crash-reports/
-servers.dat
-servers.dat_old
 
 # Ignore everything in config/
 config/*
