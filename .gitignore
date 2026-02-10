@@ -30,6 +30,8 @@ xaero/
 .mixin.out/
 XaeroWaypoints_BACKUP*
 crash-reports/
+servers.dat
+servers.dat_old
 
 # Ignore everything in config/
 config/*
