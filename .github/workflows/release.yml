@@ -77,7 +77,7 @@ jobs:
           PK_LOCK=$(jq '.' pakku-lock.json)
 
           NAME=$(echo "$PK_INFO" | jq -r '.name')
-          RELEASE_TYPE=$(echo "$PK_INFO" | jq -r '.release_type')
+          RELEASE_TYPE="release"
           MC_VERSION=$(echo "$PK_LOCK" | jq -r '.mc_versions[0]')
           LOADER_TYPE=$(echo "$PK_LOCK" | jq -r '.loaders | keys[0]')
           LOADER_VERSION=$(echo "$PK_LOCK" | jq -r ".loaders.\"$LOADER_TYPE\"")
