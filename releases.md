@@ -2,9 +2,9 @@
 
 This file contains short, high-level summaries of each release. For full details, including mod diffs, see the [GitHub Releases](https://github.com/irunatbullets/surface-living/releases) page.
 
-## [Ureleased]
+## [1.2.2]
 
-More boring updates!
+More boring updates but with less geese and ducks.
 
 ## [1.2.1]
 
@@ -21,3 +21,4 @@ Added some recipes to give phantoms a reason to exist beyond just being annoying
 ## [1.0.0]
 
 A fresh version of **Surface Living** is out.
+
