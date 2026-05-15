@@ -2878,24 +2878,24 @@
             "files": [
                 {
                     "type": "modrinth",
-                    "file_name": "sodium-neoforge-0.8.12-alpha.2+mc1.21.1.jar",
+                    "file_name": "sodium-neoforge-0.6.13+mc1.21.1.jar",
                     "mc_versions": [
                         "1.21.1"
                     ],
                     "loaders": [
                         "neoforge"
                     ],
-                    "release_type": "alpha",
-                    "url": "https://cdn.modrinth.com/data/AANobbMI/versions/hSgrV2wa/sodium-neoforge-0.8.12-alpha.2+mc1.21.1.jar",
-                    "id": "hSgrV2wa",
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/AANobbMI/versions/Pb3OXVqC/sodium-neoforge-0.6.13+mc1.21.1.jar",
+                    "id": "Pb3OXVqC",
                     "parent_id": "AANobbMI",
                     "hashes": {
-                        "sha512": "0dd90a033062947ac3392a4624c52da1459b33f5e694a64afe966dd6813e45f4f1cd299dd4d8bfbc107f20a30513afdf8724e8f7b984123e2181142d2383f51f",
-                        "sha1": "efc5edffe91596779a1ad3586e50a00126dc3341"
+                        "sha512": "ce58f34d05d96c0a109a5cea23c741f6bdb2e6be31fc087c5989274cefca5f10ba0c08c62083cf554a51f2c7667bf46e4164383f675c844e77633aef2659996b",
+                        "sha1": "38af70fa4dc4b2aaac636e92fdba3bedd5a025e1"
                     },
                     "required_dependencies": [],
-                    "size": 1284556,
-                    "date_published": "2026-05-13T23:29:44.454608Z"
+                    "size": 1162994,
+                    "date_published": "2025-04-04T00:08:12.456557Z"
                 }
             ]
         },
@@ -4280,3 +4280,4 @@
     ],
     "lockfile_version": 1
 }
+
